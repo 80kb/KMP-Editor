@@ -32,12 +32,6 @@ public class KMP
             Version         = reader.ReadUInt32();
             SectionOffsets  = reader.ReadUInt32s(SectionCount);
 
-            Debug.WriteLine("Magic:\t\t" + Magic.ToString("X"));
-            Debug.WriteLine("FileLength:\t" + FileLength);
-            Debug.WriteLine("SectionCount:\t" + SectionCount);
-            Debug.WriteLine("HeaderLength:\t" + HeaderLength);
-            Debug.WriteLine("Version:\t\t" + Version);
-            Debug.WriteLine("Offsets: {");
             for(int i = 0; i < SectionCount; i++)
             {
                 Debug.WriteLine(SectionOffsets[i]);
@@ -112,13 +106,8 @@ public class KMP
 
         public _Section(EndianReader reader)
         {
-            Debug.WriteLine("\nOffset: " + (reader.Position - 0x4C));
-
             SectionHeader   = new _SectionHeader(reader);
             Entries         = new List<T>();
-
-            Debug.WriteLine("Section:\t\t" + SectionHeader.SectionMagic.ToString("X"));
-            Debug.WriteLine("EntryCount:\t\t" + SectionHeader.EntryCount);
 
             for(int i = 0; i <  SectionHeader.EntryCount; i++)
             {
