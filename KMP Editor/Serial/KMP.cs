@@ -934,8 +934,6 @@ namespace KMP_Editor.Serial
             EndianReader reader = new EndianReader(Data, Endianness.BigEndian);
             Header = new _Header(reader);
 
-            Debug.WriteLine("Header.FileLength: " + Header.FileLength);
-
             KTPT = new _Section<_KTPT>(reader);
             ENPT = new _Section<_ENPT>(reader);
             ENPH = new _Section<_ENPH>(reader);
