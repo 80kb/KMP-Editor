@@ -38,7 +38,7 @@
             TreeNode treeNode8 = new TreeNode("Cameras");
             TreeNode treeNode9 = new TreeNode("Respawns");
             TreeNode treeNode10 = new TreeNode("Cannons");
-            TreeNode treeNode11 = new TreeNode(" Battle Endpoints");
+            TreeNode treeNode11 = new TreeNode("Battle Endpoints");
             TreeNode treeNode12 = new TreeNode("Stage Info");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             menuStrip1 = new MenuStrip();
@@ -50,11 +50,14 @@
             sectionTree = new TreeView();
             entryListBox = new ListBox();
             entryPropertyGrid = new PropertyGrid();
+            addButton = new Button();
+            removeButton = new Button();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // menuStrip1
             // 
+            menuStrip1.BackColor = Color.Transparent;
             menuStrip1.Items.AddRange(new ToolStripItem[] { fileMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
@@ -127,36 +130,59 @@
             treeNode10.Name = "cnptNode";
             treeNode10.Text = "Cannons";
             treeNode11.Name = "msptNode";
-            treeNode11.Text = " Battle Endpoints";
+            treeNode11.Text = "Battle Endpoints";
             treeNode12.Name = "stgiNode";
             treeNode12.Text = "Stage Info";
             sectionTree.Nodes.AddRange(new TreeNode[] { treeNode1, treeNode2, treeNode3, treeNode4, treeNode5, treeNode6, treeNode7, treeNode8, treeNode9, treeNode10, treeNode11, treeNode12 });
             sectionTree.Size = new Size(174, 411);
             sectionTree.TabIndex = 1;
+            sectionTree.AfterSelect += sectionTree_AfterSelect;
             // 
             // entryListBox
             // 
             entryListBox.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             entryListBox.FormattingEnabled = true;
             entryListBox.ItemHeight = 15;
-            entryListBox.Location = new Point(594, 27);
+            entryListBox.Location = new Point(594, 57);
             entryListBox.Name = "entryListBox";
-            entryListBox.Size = new Size(194, 169);
+            entryListBox.Size = new Size(194, 154);
             entryListBox.TabIndex = 2;
             // 
             // entryPropertyGrid
             // 
             entryPropertyGrid.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
-            entryPropertyGrid.Location = new Point(594, 202);
+            entryPropertyGrid.Location = new Point(594, 217);
             entryPropertyGrid.Name = "entryPropertyGrid";
-            entryPropertyGrid.Size = new Size(194, 236);
+            entryPropertyGrid.Size = new Size(194, 221);
             entryPropertyGrid.TabIndex = 3;
+            // 
+            // addButton
+            // 
+            addButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            addButton.Location = new Point(594, 28);
+            addButton.Name = "addButton";
+            addButton.Size = new Size(98, 23);
+            addButton.TabIndex = 4;
+            addButton.Text = "Add";
+            addButton.UseVisualStyleBackColor = true;
+            // 
+            // removeButton
+            // 
+            removeButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            removeButton.Location = new Point(698, 28);
+            removeButton.Name = "removeButton";
+            removeButton.Size = new Size(90, 23);
+            removeButton.TabIndex = 5;
+            removeButton.Text = "Remove";
+            removeButton.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(removeButton);
+            Controls.Add(addButton);
             Controls.Add(entryPropertyGrid);
             Controls.Add(entryListBox);
             Controls.Add(sectionTree);
@@ -182,5 +208,7 @@
         private TreeView sectionTree;
         private ListBox entryListBox;
         private PropertyGrid entryPropertyGrid;
+        private Button addButton;
+        private Button removeButton;
     }
 }

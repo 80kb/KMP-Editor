@@ -4,6 +4,21 @@ namespace KMP_Editor.Serial
 {
     public class KMP
     {
+        public interface _ISection
+        {
+            public void Write(EndianWriter writer);
+            public int Length();
+            public void AddEntry();
+            public void RemoveEntry(int index);
+            public _ISectionEntry GetEntry(int index);
+        }
+
+        public interface _ISectionEntry
+        {
+            public void Read(EndianReader reader);
+            public void Write(EndianWriter writer);
+        }
+
         public class _Header
         {
             public UInt32 Magic;
@@ -31,12 +46,6 @@ namespace KMP_Editor.Serial
                 HeaderLength = reader.ReadUInt16();
                 Version = reader.ReadUInt32();
                 SectionOffsets = reader.ReadUInt32s(SectionCount);
-
-                for (int i = 0; i < SectionCount; i++)
-                {
-                    Debug.WriteLine(SectionOffsets[i]);
-                }
-                Debug.WriteLine("}");
             }
 
             public void Write(EndianWriter writer)
@@ -93,7 +102,7 @@ namespace KMP_Editor.Serial
             }
         }
 
-        public class _Section<T> where T : _ISectionEntry, new()
+        public class _Section<T> : _ISection where T : _ISectionEntry, new()
         {
             public _SectionHeader SectionHeader;
             public List<T> Entries;
@@ -144,16 +153,10 @@ namespace KMP_Editor.Serial
                 Entries.RemoveAt(index);
             }
 
-            public T GetEntry(int index)
+            public _ISectionEntry GetEntry(int index)
             {
                 return Entries[index];
             }
-        }
-
-        public interface _ISectionEntry
-        {
-            public void Read(EndianReader reader);
-            public void Write(EndianWriter writer);
         }
 
         public class _KTPT : _ISectionEntry
