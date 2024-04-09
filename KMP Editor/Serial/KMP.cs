@@ -1,9 +1,13 @@
-﻿using System.Diagnostics;
+﻿using System.ComponentModel;
 
 namespace KMP_Editor.Serial
 {
     public class KMP
     {
+        ////////////////////////////////
+        /////       Control        /////
+        ////////////////////////////////
+
         public interface _ISection
         {
             public void Write(EndianWriter writer);
@@ -18,6 +22,67 @@ namespace KMP_Editor.Serial
             public void Read(EndianReader reader);
             public void Write(EndianWriter writer);
         }
+
+        public class _Section<T> : _ISection where T : _ISectionEntry, new()
+        {
+            public _SectionHeader SectionHeader;
+            public List<T> Entries;
+
+            public _Section()
+            {
+                SectionHeader = new _SectionHeader(typeof(T));
+                Entries = new List<T>();
+            }
+
+            public _Section(EndianReader reader)
+            {
+                SectionHeader = new _SectionHeader(reader);
+                Entries = new List<T>();
+
+                for (int i = 0; i < SectionHeader.EntryCount; i++)
+                {
+                    T entry = new T();
+                    entry.Read(reader);
+                    Entries.Add(entry);
+                }
+            }
+
+            public void Write(EndianWriter writer)
+            {
+                SectionHeader.Write(writer);
+
+                for (int i = 0; i < SectionHeader.EntryCount; i++)
+                {
+                    Entries[i].Write(writer);
+                }
+            }
+
+            public int Length()
+            {
+                return SectionHeader.EntryCount;
+            }
+
+            public void AddEntry()
+            {
+                SectionHeader.EntryCount++;
+                Entries.Add(new T());
+            }
+
+            public void RemoveEntry(int index)
+            {
+                SectionHeader.EntryCount--;
+                Entries.RemoveAt(index);
+            }
+
+            public _ISectionEntry GetEntry(int index)
+            {
+                return Entries[index];
+            }
+        }
+
+        //////////////////////////////
+        /////       Model        /////
+        //////////////////////////////
 
         public class _Header
         {
@@ -101,70 +166,17 @@ namespace KMP_Editor.Serial
                 writer.WriteUInt16(OptionalSetting);
             }
         }
-
-        public class _Section<T> : _ISection where T : _ISectionEntry, new()
-        {
-            public _SectionHeader SectionHeader;
-            public List<T> Entries;
-
-            public _Section()
-            {
-                SectionHeader = new _SectionHeader(typeof(T));
-                Entries = new List<T>();
-            }
-
-            public _Section(EndianReader reader)
-            {
-                SectionHeader = new _SectionHeader(reader);
-                Entries = new List<T>();
-
-                for (int i = 0; i < SectionHeader.EntryCount; i++)
-                {
-                    T entry = new T();
-                    entry.Read(reader);
-                    Entries.Add(entry);
-                }
-            }
-
-            public void Write(EndianWriter writer)
-            {
-                SectionHeader.Write(writer);
-
-                for (int i = 0; i < SectionHeader.EntryCount; i++)
-                {
-                    Entries[i].Write(writer);
-                }
-            }
-
-            public int Length()
-            {
-                return SectionHeader.EntryCount;
-            }
-
-            public void AddEntry()
-            {
-                SectionHeader.EntryCount++;
-                Entries.Add(new T());
-            }
-
-            public void RemoveEntry(int index)
-            {
-                SectionHeader.EntryCount--;
-                Entries.RemoveAt(index);
-            }
-
-            public _ISectionEntry GetEntry(int index)
-            {
-                return Entries[index];
-            }
-        }
-
+        
         public class _KTPT : _ISectionEntry
         {
-            public float[] StartPosition;
-            public float[] StartRotation;
-            public Int16 PlayerIndex;
-            public UInt16 Padding;
+            [Category("Transform")]
+            public float[] StartPosition { get; set; }
+
+            [Category("Transform")]
+            public float[] StartRotation { get; set; }
+
+            public Int16 PlayerIndex { get; set; }
+            public UInt16 Padding { get; private set; }
 
             public _KTPT()
             {
@@ -198,11 +210,20 @@ namespace KMP_Editor.Serial
 
         public class _ENPT : _ISectionEntry
         {
-            public float[] Position;
-            public float Scale;
-            public UInt16 Setting1;
-            public Byte Setting2;
-            public Byte Setting3;
+            [Category("Transform")]
+            public float[] Position { get; set; }
+
+            [Category("Transform")]
+            public float Scale { get; set; }
+
+            [Category("Settings")]
+            public UInt16 Setting1 { get; set; }
+
+            [Category("Settings")]
+            public Byte Setting2 { get; set; }
+
+            [Category("Settings")]
+            public Byte Setting3 { get; set; }
 
             public _ENPT()
             {
@@ -239,18 +260,22 @@ namespace KMP_Editor.Serial
 
         public class _ENPH : _ISectionEntry
         {
-            public Byte Start;
-            public Byte Length;
-            public Byte[] Previous;
-            public Byte[] Next;
-            public UInt16 Padding;
+            public Byte Start { get; private set; }
+            public Byte Length { get; private set; }
+            public UInt16 Padding { get; private set; }
+
+            [Category("Links")]
+            public byte[] Previous { get; set; }
+
+            [Category("Links")]
+            public byte[] Next { get; set; }
 
             public _ENPH()
             {
                 Start = 0;
                 Length = 0;
-                Previous = new Byte[6] { 0x00, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
-                Next = new Byte[6] { 0x00, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
+                Previous = new byte[6] { 0x00, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
+                Next = new byte[6] { 0x00, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
                 Padding = 0;
             }
 
@@ -280,10 +305,17 @@ namespace KMP_Editor.Serial
 
         public class _ITPT : _ISectionEntry
         {
-            public float[] Position;
-            public float Scale;
-            public UInt16 Setting1;
-            public UInt16 Setting2;
+            [Category("Transform")]
+            public float[] Position { get; set; }
+
+            [Category("Transform")]
+            public float Scale { get; set; }
+
+            [Category("Settings")]
+            public UInt16 Setting1 { get; set; }
+
+            [Category("Settings")]
+            public UInt16 Setting2 { get; set; }
 
             public _ITPT()
             {
@@ -317,11 +349,15 @@ namespace KMP_Editor.Serial
 
         public class _ITPH : _ISectionEntry
         {
-            public Byte Start;
-            public Byte Length;
-            public Byte[] Previous;
-            public Byte[] Next;
-            public UInt16 Padding;
+            public Byte Start { get; private set; }
+            public Byte Length { get; private set; }
+            public UInt16 Padding { get; private set; }
+
+            [Category("Links")]
+            public Byte[] Previous { get; set; }
+
+            [Category("Links")]
+            public Byte[] Next { get; set; }
 
             public _ITPH()
             {
@@ -358,12 +394,19 @@ namespace KMP_Editor.Serial
 
         public class _CKPT : _ISectionEntry
         {
-            public float[] PositionL;
-            public float[] PositionR;
-            public Byte RespawnID;
-            public SByte Type;
-            public Byte Previous;
-            public Byte Next;
+            [Category("Transform")]
+            public float[] PositionL { get; set; }
+
+            [Category("Transform")]
+            public float[] PositionR { get; set; }
+            public Byte RespawnID { get; set; }
+            public SByte Type { get; set; }
+
+            [Category("Links")]
+            public Byte Previous { get; set; }
+
+            [Category("Links")]
+            public Byte Next { get; set; }
 
             public _CKPT()
             {
@@ -403,11 +446,16 @@ namespace KMP_Editor.Serial
 
         public class _CKPH : _ISectionEntry
         {
-            public Byte Start;
-            public Byte Length;
-            public Byte[] Previous;
-            public Byte[] Next;
-            public UInt16 Padding;
+            public Byte Start { get; private set; }
+            public Byte Length { get; private set; }
+
+            [Category("Links")]
+            public Byte[] Previous { get; set; }
+
+            [Category("Links")]
+            public Byte[] Next { get; set; }
+
+            public UInt16 Padding { get; private set; }
 
             public _CKPH()
             {
@@ -444,14 +492,20 @@ namespace KMP_Editor.Serial
 
         public class _GOBJ : _ISectionEntry
         {
-            public UInt16 ID;
-            public UInt16 Padding;
-            public float[] Position;
-            public float[] Rotation;
-            public float[] Scale;
-            public UInt16 RouteID;
-            public UInt16[] Settings;
-            public UInt16 Flag;
+            public UInt16 ID { get; set; }
+            public UInt16 Padding { get; private set; }
+
+            [Category("Transform")]
+            public float[] Position { get; set; }
+
+            [Category("Transform")]
+            public float[] Rotation { get; set; }
+
+            [Category("Transform")]
+            public float[] Scale { get; set; }
+            public UInt16 RouteID { get; set; }
+            public UInt16[] Settings { get; set; }
+            public UInt16 Flag { get; set; }
 
             public _GOBJ()
             {
@@ -499,9 +553,14 @@ namespace KMP_Editor.Serial
         {
             public class _Point
             {
-                public float[] Position;
-                public UInt16 Setting1;
-                public UInt16 Setting2;
+                [Category("Transform")]
+                public float[] Position { get; set; }
+
+                [Category("Settings")]
+                public UInt16 Setting1 { get; set; }
+
+                [Category("Settings")]
+                public UInt16 Setting2 { get; set; }
 
                 public _Point()
                 {
@@ -525,10 +584,15 @@ namespace KMP_Editor.Serial
                 }
             }
 
-            public UInt16 PointCount;
-            public Byte Setting1;
-            public Byte Setting2;
-            public _Point[] Points;
+            public UInt16 PointCount { get; private set; }
+
+            [Category("Settings")]
+            public Byte Setting1 { get; set; }
+
+            [Category("Settings")]
+            public Byte Setting2 { get; set; }
+            
+            public _Point[] Points { get; private set; }
 
             public _POTI()
             {
@@ -571,18 +635,18 @@ namespace KMP_Editor.Serial
 
         public class _AREA : _ISectionEntry
         {
-            public Byte Shape;          // 0 = Box, 1 = Cylinder
-            public Byte Type;           // https://wiki.tockdom.com/wiki/AREA_type
-            public Byte CameraID;
-            public Byte Priority;
-            public float[] Position;
-            public float[] Rotation;
-            public float[] Scale;
-            public UInt16 Setting1;
-            public UInt16 Setting2;
-            public Byte RouteID;
-            public Byte EnemyPointID;
-            public UInt16 Padding;
+            public Byte Shape { get; set; }
+            public Byte Type { get; set; }
+            public Byte CameraID { get; set; }
+            public Byte Priority { get; set; }
+            public float[] Position { get; set; }
+            public float[] Rotation { get; set; }
+            public float[] Scale { get; set; }
+            public UInt16 Setting1 { get; set; }
+            public UInt16 Setting2 { get; set; }
+            public Byte RouteID { get; set; }
+            public Byte EnemyPointID { get; set; }
+            public UInt16 Padding { get; private set; }
 
             public _AREA()
             {
