@@ -344,8 +344,8 @@ namespace KMP_Editor.Serial
 
         public class _ITPH : _ISectionEntry
         {
-            public Byte Start { get; private set; }
-            public Byte Length { get; private set; }
+            public Byte Start { get; internal set; }
+            public Byte Length { get; internal set; }
             public UInt16 Padding { get; private set; }
 
             [Category("Links")]

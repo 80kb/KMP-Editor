@@ -1,6 +1,5 @@
 using KMP_Editor.Control;
 using KMP_Editor.Serial;
-using System.Diagnostics;
 
 namespace KMP_Editor
 {
@@ -59,7 +58,6 @@ namespace KMP_Editor
             sectionTree.Nodes[1].Tag = enphNode;
             for (int i = 0; i < enphData.Count; i++)
             {
-                KMP._ENPH enph = (KMP._ENPH)enphData[i];
                 ENPHGroupNode enphGroupNode = new ENPHGroupNode(FileInstance, i);
 
                 TreeNode treeNode = new TreeNode("Group " + i);
@@ -68,6 +66,24 @@ namespace KMP_Editor
                 treeNode.SelectedImageIndex = 1;
 
                 sectionTree.Nodes[1].Nodes.Add(treeNode);
+            }
+
+            // ITPH/ITPT
+            ITPHNode itphNode = new ITPHNode(FileInstance);
+            List<KMP._ISectionEntry> itphData = itphNode.GetData();
+
+            sectionTree.Nodes[2].Nodes.Clear();
+            sectionTree.Nodes[2].Tag = itphNode;
+            for (int i = 0; i < itphData.Count; i++)
+            {
+                ITPHGroupNode itphGroupNode = new ITPHGroupNode(FileInstance, i);
+
+                TreeNode treeNode = new TreeNode("Group " + i);
+                treeNode.Tag = itphGroupNode;
+                treeNode.ImageIndex = 2;
+                treeNode.SelectedImageIndex = 2;
+
+                sectionTree.Nodes[2].Nodes.Add(treeNode);
             }
         }
 
