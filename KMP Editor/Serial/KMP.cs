@@ -164,12 +164,8 @@ namespace KMP_Editor.Serial
         
         public class _KTPT : _ISectionEntry
         {
-            [Category("Transform")]
             public float[] StartPosition { get; set; }
-
-            [Category("Transform")]
             public float[] StartRotation { get; set; }
-
             public Int16 PlayerIndex { get; set; }
             public UInt16 Padding { get; private set; }
 
@@ -205,19 +201,10 @@ namespace KMP_Editor.Serial
 
         public class _ENPT : _ISectionEntry
         {
-            [Category("Transform")]
             public float[] Position { get; set; }
-
-            [Category("Transform")]
             public float Scale { get; set; }
-
-            [Category("Settings")]
             public UInt16 Setting1 { get; set; }
-
-            [Category("Settings")]
             public Byte Setting2 { get; set; }
-
-            [Category("Settings")]
             public Byte Setting3 { get; set; }
 
             public _ENPT()
@@ -258,11 +245,7 @@ namespace KMP_Editor.Serial
             public Byte Start { get; internal set; }
             public Byte Length { get; internal set; }
             public UInt16 Padding { get; private set; }
-
-            [Category("Links")]
             public byte[] Previous { get; set; }
-
-            [Category("Links")]
             public byte[] Next { get; set; }
 
             public _ENPH()
@@ -300,16 +283,9 @@ namespace KMP_Editor.Serial
 
         public class _ITPT : _ISectionEntry
         {
-            [Category("Transform")]
             public float[] Position { get; set; }
-
-            [Category("Transform")]
             public float Scale { get; set; }
-
-            [Category("Settings")]
             public UInt16 Setting1 { get; set; }
-
-            [Category("Settings")]
             public UInt16 Setting2 { get; set; }
 
             public _ITPT()
@@ -347,11 +323,7 @@ namespace KMP_Editor.Serial
             public Byte Start { get; internal set; }
             public Byte Length { get; internal set; }
             public UInt16 Padding { get; private set; }
-
-            [Category("Links")]
             public Byte[] Previous { get; set; }
-
-            [Category("Links")]
             public Byte[] Next { get; set; }
 
             public _ITPH()
@@ -389,18 +361,11 @@ namespace KMP_Editor.Serial
 
         public class _CKPT : _ISectionEntry
         {
-            [Category("Transform")]
             public float[] PositionL { get; set; }
-
-            [Category("Transform")]
             public float[] PositionR { get; set; }
             public Byte RespawnID { get; set; }
             public SByte Type { get; set; }
-
-            [Category("Links")]
             public Byte Previous { get; set; }
-
-            [Category("Links")]
             public Byte Next { get; set; }
 
             public _CKPT()
@@ -443,13 +408,8 @@ namespace KMP_Editor.Serial
         {
             public Byte Start { get; private set; }
             public Byte Length { get; private set; }
-
-            [Category("Links")]
             public Byte[] Previous { get; set; }
-
-            [Category("Links")]
             public Byte[] Next { get; set; }
-
             public UInt16 Padding { get; private set; }
 
             public _CKPH()
@@ -489,14 +449,8 @@ namespace KMP_Editor.Serial
         {
             public UInt16 ID { get; set; }
             public UInt16 Padding { get; private set; }
-
-            [Category("Transform")]
             public float[] Position { get; set; }
-
-            [Category("Transform")]
             public float[] Rotation { get; set; }
-
-            [Category("Transform")]
             public float[] Scale { get; set; }
             public UInt16 RouteID { get; set; }
             public UInt16[] Settings { get; set; }
@@ -585,13 +539,8 @@ namespace KMP_Editor.Serial
             }
 
             public UInt16 PointCount { get; private set; }
-
-            [Category("Settings")]
             public Byte Setting1 { get; set; }
-
-            [Category("Settings")]
             public Byte Setting2 { get; set; }
-            
             public _Point[] Points { get; private set; }
 
             public _POTI()

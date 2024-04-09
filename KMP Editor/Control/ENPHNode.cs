@@ -26,8 +26,14 @@ namespace KMP_Editor.Control
 
         public void AddEntry()
         {
+            if (ENPH.Length() <= 0)
+            {
+                ENPH.AddEntry();
+                return;
+            }
+
             _ENPH lastEntry = (_ENPH)ENPH.GetEntry(ENPH.Length() - 1);
-            if(lastEntry.Start == byte.MaxValue)
+            if (lastEntry.Start == byte.MaxValue)
                 return;
 
             _ENPH newEntry  = (_ENPH)ENPH.AddEntry();

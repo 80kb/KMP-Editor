@@ -26,6 +26,12 @@ namespace KMP_Editor.Control
 
         public void AddEntry()
         {
+            if (ITPH.Length() <= 0)
+            {
+                ITPH.AddEntry();
+                return;
+            }
+
             _ITPH lastEntry = (_ITPH)ITPH.GetEntry(ITPH.Length() - 1);
             if (lastEntry.Start == byte.MaxValue)
                 return;

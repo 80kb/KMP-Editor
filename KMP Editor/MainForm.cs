@@ -180,11 +180,12 @@ namespace KMP_Editor
 
         private void removeButton_Click(object sender, EventArgs e)
         {
-            if (entryListBox.SelectedIndex < 0) 
+            if (entryListBox.SelectedIndex < 0)
                 return;
 
             SelectedNode.RemoveEntry(entryListBox.SelectedIndex);
             UpdateUI();
+            entryListBox.SelectedIndex = SelectedNode.GetData().Count - 1;
         }
     }
 }

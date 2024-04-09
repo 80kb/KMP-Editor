@@ -162,7 +162,7 @@
             entryPropertyGrid.HelpVisible = false;
             entryPropertyGrid.Location = new Point(6, 22);
             entryPropertyGrid.Name = "entryPropertyGrid";
-            entryPropertyGrid.PropertySort = PropertySort.Categorized;
+            entryPropertyGrid.PropertySort = PropertySort.NoSort;
             entryPropertyGrid.Size = new Size(205, 263);
             entryPropertyGrid.TabIndex = 3;
             entryPropertyGrid.ToolbarVisible = false;
