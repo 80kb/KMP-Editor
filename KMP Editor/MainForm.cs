@@ -7,7 +7,7 @@ namespace KMP_Editor
     public partial class MainForm : Form
     {
         private KMP FileInstance;
-        private List<KMP._ISectionEntry> SelectedData;
+        private INode SelectedNode;
 
         public MainForm()
         {
@@ -47,17 +47,39 @@ namespace KMP_Editor
 
             sectionTree.Enabled = true;
 
+            // KTPT
+            KTPTNode ktptNode = new KTPTNode(FileInstance);
+            sectionTree.Nodes[0].Tag = ktptNode;
+
             // ENPH/ENPT
             ENPHNode enphNode = new ENPHNode(FileInstance);
+            List<KMP._ISectionEntry> enphData = enphNode.GetData();
+
             sectionTree.Nodes[1].Nodes.Clear();
-            sectionTree.Nodes[1].Tag = enphNode.GetData();
-            for(int i = 0; i < FileInstance.ENPH.Length(); i++)
+            sectionTree.Nodes[1].Tag = enphNode;
+            for (int i = 0; i < enphData.Count; i++)
             {
-                TreeNode enptNode = new TreeNode("Group " + i);
-                enptNode.Tag = enphNode.GetGroup(i);
-                enptNode.ImageIndex = 1;
-                enptNode.SelectedImageIndex = 1;
-                sectionTree.Nodes[1].Nodes.Add(enptNode);
+                KMP._ENPH enph = (KMP._ENPH)enphData[i];
+                ENPHGroupNode enphGroupNode = new ENPHGroupNode(FileInstance, i);
+
+                TreeNode treeNode = new TreeNode("Group " + i);
+                treeNode.Tag = enphGroupNode;
+                treeNode.ImageIndex = 1;
+                treeNode.SelectedImageIndex = 1;
+
+                sectionTree.Nodes[1].Nodes.Add(treeNode);
+            }
+        }
+
+        private void UpdateUI()
+        {
+            Populate();
+
+            entryListBox.Items.Clear();
+            entryPropertyGrid.SelectedObject = null;
+            for (int i = 0; i < SelectedNode.GetData().Count; i++)
+            {
+                entryListBox.Items.Add("Node " + i);
             }
         }
 
@@ -110,15 +132,15 @@ namespace KMP_Editor
 
         private void sectionTree_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            List<KMP._ISectionEntry> data = (List<KMP._ISectionEntry>)sectionTree.SelectedNode.Tag;
-            if (data == null)
+            INode node = (INode)sectionTree.SelectedNode.Tag;
+            if (node == null)
                 return;
 
             entryListBox.Items.Clear();
             entryPropertyGrid.SelectedObject = null;
 
-            SelectedData = data;
-            for (int i = 0; i < data.Count; i++)
+            SelectedNode = node;
+            for (int i = 0; i < node.GetData().Count; i++)
             {
                 entryListBox.Items.Add("Node " + i);
             }
@@ -126,10 +148,27 @@ namespace KMP_Editor
 
         private void entryListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (entryListBox.SelectedIndex < 0)
+            if (SelectedNode == null || entryListBox.SelectedIndex < 0)
                 return;
 
-            entryPropertyGrid.SelectedObject = SelectedData[entryListBox.SelectedIndex];
+            List<KMP._ISectionEntry> data = SelectedNode.GetData();
+            entryPropertyGrid.SelectedObject = data[entryListBox.SelectedIndex];
+        }
+
+        private void addButton_Click(object sender, EventArgs e)
+        {
+            SelectedNode.AddEntry();
+            UpdateUI();
+            entryListBox.SelectedIndex = SelectedNode.GetData().Count - 1;
+        }
+
+        private void removeButton_Click(object sender, EventArgs e)
+        {
+            if (entryListBox.SelectedIndex < 0) 
+                return;
+
+            SelectedNode.RemoveEntry(entryListBox.SelectedIndex);
+            UpdateUI();
         }
     }
 }

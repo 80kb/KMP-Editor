@@ -4,26 +4,13 @@ namespace KMP_Editor.Serial
 {
     public class KMP
     {
-        ////////////////////////////////
-        /////       Control        /////
-        ////////////////////////////////
-
-        public interface _ISection
-        {
-            public void Write(EndianWriter writer);
-            public int Length();
-            public void AddEntry();
-            public void RemoveEntry(int index);
-            public _ISectionEntry GetEntry(int index);
-        }
-
         public interface _ISectionEntry
         {
             public void Read(EndianReader reader);
             public void Write(EndianWriter writer);
         }
 
-        public class _Section<T> : _ISection where T : _ISectionEntry, new()
+        public class _Section<T> where T : _ISectionEntry, new()
         {
             public _SectionHeader SectionHeader;
             public List<T> Entries;
@@ -62,10 +49,22 @@ namespace KMP_Editor.Serial
                 return SectionHeader.EntryCount;
             }
 
-            public void AddEntry()
+            public _ISectionEntry AddEntry()
             {
                 SectionHeader.EntryCount++;
-                Entries.Add(new T());
+
+                T entry = new T();
+                Entries.Add(entry);
+                return entry;
+            }
+
+            public _ISectionEntry AddEntry(int index)
+            {
+                SectionHeader.EntryCount++;
+
+                T entry = new T();
+                Entries.Insert(index, entry);
+                return entry;
             }
 
             public void RemoveEntry(int index)
@@ -79,10 +78,6 @@ namespace KMP_Editor.Serial
                 return Entries[index];
             }
         }
-
-        //////////////////////////////
-        /////       Model        /////
-        //////////////////////////////
 
         public class _Header
         {
@@ -260,8 +255,8 @@ namespace KMP_Editor.Serial
 
         public class _ENPH : _ISectionEntry
         {
-            public Byte Start { get; private set; }
-            public Byte Length { get; private set; }
+            public Byte Start { get; internal set; }
+            public Byte Length { get; internal set; }
             public UInt16 Padding { get; private set; }
 
             [Category("Links")]
@@ -551,7 +546,7 @@ namespace KMP_Editor.Serial
 
         public class _POTI : _ISectionEntry
         {
-            public class _Point
+            public class _Point : _ISectionEntry
             {
                 [Category("Transform")]
                 public float[] Position { get; set; }
@@ -570,6 +565,11 @@ namespace KMP_Editor.Serial
                 }
 
                 public _Point(EndianReader reader)
+                {
+                    Read(reader);
+                }
+
+                public void Read(EndianReader reader)
                 {
                     Position = reader.ReadFloats(3);
                     Setting1 = reader.ReadUInt16();
