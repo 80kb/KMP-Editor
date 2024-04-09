@@ -45,6 +45,8 @@ namespace KMP_Editor
                 return;
 
             sectionTree.Enabled = true;
+            propertyGroupBox.Enabled = true;
+            entryGroupBox.Enabled = true;
 
             // KTPT
             KTPTNode ktptNode = new KTPTNode(FileInstance);
@@ -173,6 +175,9 @@ namespace KMP_Editor
 
         private void addButton_Click(object sender, EventArgs e)
         {
+            if (SelectedNode == null)
+                return;
+
             SelectedNode.AddEntry();
             UpdateUI();
             entryListBox.SelectedIndex = SelectedNode.GetData().Count - 1;
@@ -180,6 +185,9 @@ namespace KMP_Editor
 
         private void removeButton_Click(object sender, EventArgs e)
         {
+            if (SelectedNode == null)
+                return;
+
             if (entryListBox.SelectedIndex < 0)
                 return;
 

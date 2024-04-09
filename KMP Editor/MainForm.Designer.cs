@@ -195,6 +195,7 @@
             entryGroupBox.Controls.Add(addButton);
             entryGroupBox.Controls.Add(removeButton);
             entryGroupBox.Controls.Add(entryListBox);
+            entryGroupBox.Enabled = false;
             entryGroupBox.Location = new Point(882, 27);
             entryGroupBox.Name = "entryGroupBox";
             entryGroupBox.Size = new Size(219, 256);
@@ -206,6 +207,7 @@
             // 
             propertyGroupBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             propertyGroupBox.Controls.Add(entryPropertyGrid);
+            propertyGroupBox.Enabled = false;
             propertyGroupBox.Location = new Point(882, 289);
             propertyGroupBox.Name = "propertyGroupBox";
             propertyGroupBox.Size = new Size(219, 291);
