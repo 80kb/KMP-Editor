@@ -149,7 +149,6 @@ namespace KMP_Editor
 
             SelectedNode.AddEntry();
             UpdateUI();
-            entryListBox.SelectedIndex = SelectedNode.GetData().Count - 1;
         }
 
         private void removeButton_Click(object sender, EventArgs e)
@@ -162,7 +161,6 @@ namespace KMP_Editor
 
             SelectedNode.RemoveEntry(entryListBox.SelectedIndex);
             UpdateUI();
-            entryListBox.SelectedIndex = SelectedNode.GetData().Count - 1;
         }
     }
 }
