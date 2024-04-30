@@ -1,7 +1,4 @@
-﻿using System.ComponentModel;
-using System.Drawing.Design;
-
-namespace KMP_Editor.Serial
+﻿namespace KMP_Editor.Serial
 {
     public class KMP
     {
