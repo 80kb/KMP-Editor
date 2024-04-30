@@ -3,18 +3,20 @@ using static KMP_Editor.Serial.KMP;
 
 namespace KMP_Editor.Control
 {
-    public class ITPHNode : INode
+    public class ITPHNode : Node
     {
+        public KMP KMP;
         public _Section<_ITPH> ITPH;
         public _Section<_ITPT> ITPT;
 
         public ITPHNode(KMP kmp)
         {
+            this.KMP = kmp;
             ITPH = kmp.ITPH;
             ITPT = kmp.ITPT;
         }
 
-        public List<_ISectionEntry> GetData()
+        public override List<_ISectionEntry> GetData()
         {
             List<_ISectionEntry> result = new List<_ISectionEntry>();
             for (int i = 0; i < ITPH.Length(); i++)
@@ -24,7 +26,7 @@ namespace KMP_Editor.Control
             return result;
         }
 
-        public void AddEntry()
+        public override void AddEntry()
         {
             if (ITPH.Length() <= 0)
             {
@@ -40,7 +42,7 @@ namespace KMP_Editor.Control
             newEntry.Start = (byte)(lastEntry.Start + lastEntry.Length);
         }
 
-        public void RemoveEntry(int index)
+        public override void RemoveEntry(int index)
         {
             _ITPH node = (_ITPH)ITPH.GetEntry(index);
             for (int i = node.Start; i < (node.Length + node.Start); i++)
@@ -57,9 +59,24 @@ namespace KMP_Editor.Control
                 position += current.Length;
             }
         }
+
+        public override void Populate(TreeNode node)
+        {
+            base.Populate(node);
+            node.Nodes.Clear();
+            for (int i = 0; i < GetData().Count; i++)
+            {
+                ITPHGroupNode itphGroupNode = new ITPHGroupNode(this.KMP, i);
+                TreeNode treeNode = new TreeNode("Group " + i);
+                treeNode.Tag = itphGroupNode;
+                treeNode.ImageIndex = 2;
+                treeNode.SelectedImageIndex = 2;
+                node.Nodes.Add(treeNode);
+            }
+        }
     }
 
-    public class ITPHGroupNode : INode
+    public class ITPHGroupNode : Node
     {
         public _Section<_ITPT> ITPT { get; private set; }
         public _ITPH ITPH { get; private set; }
@@ -70,7 +87,7 @@ namespace KMP_Editor.Control
             ITPH = (_ITPH)kmp.ITPH.GetEntry(index);
         }
 
-        public List<_ISectionEntry> GetData()
+        public override List<_ISectionEntry> GetData()
         {
             List<_ISectionEntry> result = new List<_ISectionEntry>();
             for (int i = ITPH.Start; i < (ITPH.Start + ITPH.Length); i++)
@@ -80,7 +97,7 @@ namespace KMP_Editor.Control
             return result;
         }
 
-        public void AddEntry()
+        public override void AddEntry()
         {
             if (ITPH.Length + 1 == byte.MaxValue)
                 return;
@@ -89,7 +106,7 @@ namespace KMP_Editor.Control
             ITPH.Length++;
         }
 
-        public void RemoveEntry(int index)
+        public override void RemoveEntry(int index)
         {
             ITPT.RemoveEntry(ITPH.Start + index);
             ITPH.Length--;

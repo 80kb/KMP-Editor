@@ -2,7 +2,7 @@
 
 namespace KMP_Editor.Control
 {
-    public class KTPTNode : INode
+    public class KTPTNode : Node
     {
         public KMP._Section<KMP._KTPT> KTPT { get; private set; }
 
@@ -11,7 +11,7 @@ namespace KMP_Editor.Control
             KTPT = kmp.KTPT;
         }
 
-        public List<KMP._ISectionEntry> GetData()
+        public override List<KMP._ISectionEntry> GetData()
         {
             List<KMP._ISectionEntry> result = new List<KMP._ISectionEntry>();
             for(int i = 0; i < KTPT.Length(); i++)
@@ -21,12 +21,12 @@ namespace KMP_Editor.Control
             return result;
         }
 
-        public void AddEntry()
+        public override void AddEntry()
         {
             KTPT.AddEntry();
         }
 
-        public void RemoveEntry(int index)
+        public override void RemoveEntry(int index)
         {
             KTPT.RemoveEntry(index);
         }

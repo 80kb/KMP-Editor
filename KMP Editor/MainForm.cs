@@ -6,7 +6,7 @@ namespace KMP_Editor
     public partial class MainForm : Form
     {
         private KMP FileInstance;
-        private INode SelectedNode;
+        private Node SelectedNode;
 
         public MainForm()
         {
@@ -48,45 +48,14 @@ namespace KMP_Editor
             propertyGroupBox.Enabled = true;
             entryGroupBox.Enabled = true;
 
-            // KTPT
-            KTPTNode ktptNode = new KTPTNode(FileInstance);
-            sectionTree.Nodes[0].Tag = ktptNode;
+            sectionTree.Nodes[0].Tag = new KTPTNode(FileInstance);
+            sectionTree.Nodes[1].Tag = new ENPHNode(FileInstance);
+            sectionTree.Nodes[2].Tag = new ITPHNode(FileInstance);
+            sectionTree.Nodes[3].Tag = new CKPHNode(FileInstance);
+            sectionTree.Nodes[4].Tag = new GOBJNode(FileInstance);
 
-            // ENPH/ENPT
-            ENPHNode enphNode = new ENPHNode(FileInstance);
-            List<KMP._ISectionEntry> enphData = enphNode.GetData();
-
-            sectionTree.Nodes[1].Nodes.Clear();
-            sectionTree.Nodes[1].Tag = enphNode;
-            for (int i = 0; i < enphData.Count; i++)
-            {
-                ENPHGroupNode enphGroupNode = new ENPHGroupNode(FileInstance, i);
-
-                TreeNode treeNode = new TreeNode("Group " + i);
-                treeNode.Tag = enphGroupNode;
-                treeNode.ImageIndex = 1;
-                treeNode.SelectedImageIndex = 1;
-
-                sectionTree.Nodes[1].Nodes.Add(treeNode);
-            }
-
-            // ITPH/ITPT
-            ITPHNode itphNode = new ITPHNode(FileInstance);
-            List<KMP._ISectionEntry> itphData = itphNode.GetData();
-
-            sectionTree.Nodes[2].Nodes.Clear();
-            sectionTree.Nodes[2].Tag = itphNode;
-            for (int i = 0; i < itphData.Count; i++)
-            {
-                ITPHGroupNode itphGroupNode = new ITPHGroupNode(FileInstance, i);
-
-                TreeNode treeNode = new TreeNode("Group " + i);
-                treeNode.Tag = itphGroupNode;
-                treeNode.ImageIndex = 2;
-                treeNode.SelectedImageIndex = 2;
-
-                sectionTree.Nodes[2].Nodes.Add(treeNode);
-            }
+            foreach(TreeNode node in sectionTree.Nodes)
+                if (node.Tag != null) ((Node)node.Tag).Populate(node);
         }
 
         private void UpdateUI()
@@ -150,7 +119,7 @@ namespace KMP_Editor
 
         private void sectionTree_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            INode node = (INode)sectionTree.SelectedNode.Tag;
+            Node node = (Node)sectionTree.SelectedNode.Tag;
             if (node == null)
                 return;
 
