@@ -13,9 +13,6 @@
     <ProjectReference Include="..\EndianLib\EndianLib.csproj">
       <Private>True</Private>
     </ProjectReference>
-    <ProjectReference Include="..\GraphicsLib\GraphicsLib.csproj">
-      <Private>True</Private>
-    </ProjectReference>
   </ItemGroup>
 
   <ItemGroup>
