@@ -670,22 +670,36 @@ namespace KMP_Editor.Serial
 
         public class _CAME : _ISectionEntry
         {
-            public Byte Type;
-            public Byte Next;
-            public Byte Shake;
-            public Byte RouteID;
-            public UInt16 MoveSpeed;
-            public UInt16 ZoomSpeed;
-            public UInt16 ViewSpeed;
-            public Byte Start;
-            public Byte Movie;
-            public float[] Position;
-            public float[] Rotation;
-            public float ZoomStart;
-            public float ZoomEnd;
-            public float[] ViewStart;
-            public float[] ViewEnd;
-            public float TimeActive;
+            public enum CameraType : Byte
+            {
+                Goal = 0,
+                FixSearch = 1,
+                PathSearch = 2,
+                KartFollow = 3,
+                KartPathFollow = 4,
+                FixMoveAt = 5,
+                PathMoveAt = 6,
+                MiniGame = 7,
+                MissionSuccess = 8,
+                StaticZoom = 9
+            }
+
+            public CameraType Type { get; set; }
+            public Byte Next { get; set; }
+            public Byte Shake { get; set; }
+            public Byte RouteID { get; set; }
+            public UInt16 MoveSpeed { get; set; }
+            public UInt16 ZoomSpeed { get; set; }
+            public UInt16 ViewSpeed { get; set; }
+            public Byte Start { get; set; }
+            public Byte Movie { get; set; }
+            public float[] Position { get; set; }
+            public float[] Rotation { get; set; }
+            public float ZoomStart { get; set; }
+            public float ZoomEnd { get; set; }
+            public float[] ViewStart { get; set; }
+            public float[] ViewEnd { get; set; }
+            public float TimeActive { get; set;}
 
             public _CAME()
             {
@@ -714,7 +728,7 @@ namespace KMP_Editor.Serial
 
             public void Read(EndianReader reader)
             {
-                Type = reader.ReadByte();
+                Type = (CameraType)reader.ReadByte();
                 Next = reader.ReadByte();
                 Shake = reader.ReadByte();
                 RouteID = reader.ReadByte();
@@ -734,7 +748,7 @@ namespace KMP_Editor.Serial
 
             public void Write(EndianWriter writer)
             {
-                writer.WriteByte(Type);
+                writer.WriteByte((byte)Type);
                 writer.WriteByte(Next);
                 writer.WriteByte(Shake);
                 writer.WriteByte(RouteID);
