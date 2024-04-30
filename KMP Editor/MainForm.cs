@@ -54,6 +54,7 @@ namespace KMP_Editor
             sectionTree.Nodes[3].Tag = new CKPHNode(FileInstance);
             sectionTree.Nodes[4].Tag = new GOBJNode(FileInstance);
             sectionTree.Nodes[5].Tag = new POTINode(FileInstance);
+            sectionTree.Nodes[6].Tag = new AREANode(FileInstance);
 
             foreach(TreeNode node in sectionTree.Nodes)
                 if (node.Tag != null) ((Node)node.Tag).Populate(node);

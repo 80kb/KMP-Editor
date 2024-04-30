@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Drawing.Design;
 
 namespace KMP_Editor.Serial
 {
@@ -579,8 +580,29 @@ namespace KMP_Editor.Serial
 
         public class _AREA : _ISectionEntry
         {
-            public Byte Shape { get; set; }
-            public Byte Type { get; set; }
+            public enum AreaShape : Byte
+            {
+                Box = 0,
+                Cylinder = 1
+            }
+
+            public enum AreaType : Byte
+            {
+                Camera = 0,
+                EnvEffect = 1,
+                BFGEntrySwap = 2,
+                MovingRoad = 3,
+                DestinationPoint = 4,
+                MinimapControl = 5,
+                BBLMSwap = 6,
+                FlyingBoos = 7,
+                ObjectGrouper = 8,
+                GroupUnloading = 9,
+                FallBoundary = 10
+            }
+
+            public AreaShape Shape { get; set; }
+            public AreaType Type { get; set; }
             public Byte CameraID { get; set; }
             public Byte Priority { get; set; }
             public float[] Position { get; set; }
@@ -615,8 +637,8 @@ namespace KMP_Editor.Serial
 
             public void Read(EndianReader reader)
             {
-                Shape = reader.ReadByte();
-                Type = reader.ReadByte();
+                Shape = (AreaShape)reader.ReadByte();
+                Type = (AreaType)reader.ReadByte();
                 CameraID = reader.ReadByte();
                 Priority = reader.ReadByte();
                 Position = reader.ReadFloats(3);
@@ -631,8 +653,8 @@ namespace KMP_Editor.Serial
 
             public void Write(EndianWriter writer)
             {
-                writer.WriteByte(Shape);
-                writer.WriteByte(Type);
+                writer.WriteByte((byte)Shape);
+                writer.WriteByte((byte)Type);
                 writer.WriteByte(CameraID);
                 writer.WriteByte(Priority);
                 writer.WriteSingles(Position);
