@@ -445,7 +445,6 @@ namespace KMP_Editor.Serial
             }
         }
 
-
         public class _GOBJ : _ISectionEntry
         {
             public UInt16 ID { get; internal set; }

@@ -21,6 +21,11 @@ namespace KMP_Editor.Control
             return result;
         }
 
+        public override string GetTitle(int index)
+        {
+            return "Start Point " + index;
+        }
+
         public override void AddEntry()
         {
             KTPT.AddEntry();

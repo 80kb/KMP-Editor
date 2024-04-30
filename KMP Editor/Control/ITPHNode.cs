@@ -26,6 +26,11 @@ namespace KMP_Editor.Control
             return result;
         }
 
+        public override string GetTitle(int index)
+        {
+            return "Group " + index;
+        }
+
         public override void AddEntry()
         {
             if (ITPH.Length() <= 0)
@@ -95,6 +100,11 @@ namespace KMP_Editor.Control
                 result.Add(ITPT.GetEntry(i));
             }
             return result;
+        }
+
+        public override string GetTitle(int index)
+        {
+            return "Item Route " + index;
         }
 
         public override void AddEntry()

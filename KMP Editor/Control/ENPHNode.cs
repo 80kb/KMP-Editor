@@ -26,6 +26,11 @@ namespace KMP_Editor.Control
             return result;
         }
 
+        public override string GetTitle(int index)
+        {
+            return "Group " + index;
+        }
+
         public override void AddEntry()
         {
             if (ENPH.Length() <= 0)
@@ -99,6 +104,11 @@ namespace KMP_Editor.Control
                 result.Add(ENPT.GetEntry(i));
             }
             return result;
+        }
+
+        public override string GetTitle(int index)
+        {
+            return "Enemy Route " + index;
         }
 
         public override void AddEntry()

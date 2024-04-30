@@ -66,7 +66,7 @@ namespace KMP_Editor
             entryPropertyGrid.SelectedObject = null;
             for (int i = 0; i < SelectedNode.GetData().Count; i++)
             {
-                entryListBox.Items.Add("Node " + i);
+                entryListBox.Items.Add(SelectedNode.GetTitle(i));
             }
         }
 
@@ -129,7 +129,7 @@ namespace KMP_Editor
             SelectedNode = node;
             for (int i = 0; i < node.GetData().Count; i++)
             {
-                entryListBox.Items.Add("Node " + i);
+                entryListBox.Items.Add(node.GetTitle(i));
             }
         }
 

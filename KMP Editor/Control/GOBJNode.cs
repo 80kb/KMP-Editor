@@ -25,6 +25,11 @@ namespace KMP_Editor.Control
             return result;
         }
 
+        public override string GetTitle(int index)
+        {
+            return ((GOBJGroupNode)GetData()[index]).ID.ToString();
+        }
+
         public override void AddEntry()
         {
             // open window to determine which object
@@ -39,10 +44,9 @@ namespace KMP_Editor.Control
         public override void RemoveEntry(int index)
         {
             UInt16 id = ((GOBJGroupNode)GetData()[index]).ID;
-            for(int i = 0; i < GOBJ.Entries.Count; i++)
-            {
+
+            for(int i = GOBJ.Entries.Count - 1; i >= 0; i--)
                 if (GOBJ.Entries[i].ID == id) GOBJ.RemoveEntry(i);
-            }
         }
 
         public override void Populate(TreeNode node)
@@ -65,10 +69,11 @@ namespace KMP_Editor.Control
 
     public class GOBJGroupNode : Node, _ISectionEntry
     {
-        public UInt16 ID { get; set; }
 
         private List<_ISectionEntry> Objects;
         private _Section<_GOBJ> GOBJ;
+
+        public UInt16 ID { get; private set; }
 
         public GOBJGroupNode(_Section<_GOBJ> gobj, UInt16 id)
         {
@@ -100,6 +105,11 @@ namespace KMP_Editor.Control
                 if (obj.ID == ID) result.Add(obj);
             }
             return result;
+        }
+
+        public override string GetTitle(int index)
+        {
+            return "Instance " + index;
         }
 
         public override void AddEntry()
