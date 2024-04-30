@@ -502,13 +502,8 @@ namespace KMP_Editor.Serial
         {
             public class _Point : _ISectionEntry
             {
-                [Category("Transform")]
                 public float[] Position { get; set; }
-
-                [Category("Settings")]
                 public UInt16 Setting1 { get; set; }
-
-                [Category("Settings")]
                 public UInt16 Setting2 { get; set; }
 
                 public _Point()
@@ -538,17 +533,17 @@ namespace KMP_Editor.Serial
                 }
             }
 
-            public UInt16 PointCount { get; private set; }
+            public UInt16 PointCount { get; internal set; }
             public Byte Setting1 { get; set; }
             public Byte Setting2 { get; set; }
-            public _Point[] Points { get; private set; }
+            public List<_Point> Points { get; private set; }
 
             public _POTI()
             {
                 PointCount = 0;
                 Setting1 = 0;
                 Setting2 = 0;
-                Points = new _Point[PointCount];
+                Points = new List<_Point>();
             }
 
             public _POTI(EndianReader reader)
@@ -561,11 +556,11 @@ namespace KMP_Editor.Serial
                 PointCount = reader.ReadUInt16();
                 Setting1 = reader.ReadByte();
                 Setting2 = reader.ReadByte();
-                Points = new _Point[PointCount];
+                Points = new List<_Point>();
 
                 for (int i = 0; i < PointCount; i++)
                 {
-                    Points[i] = new _Point(reader);
+                    Points.Add( new _Point(reader) );
                 }
             }
 

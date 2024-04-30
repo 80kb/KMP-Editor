@@ -53,6 +53,7 @@ namespace KMP_Editor
             sectionTree.Nodes[2].Tag = new ITPHNode(FileInstance);
             sectionTree.Nodes[3].Tag = new CKPHNode(FileInstance);
             sectionTree.Nodes[4].Tag = new GOBJNode(FileInstance);
+            sectionTree.Nodes[5].Tag = new POTINode(FileInstance);
 
             foreach(TreeNode node in sectionTree.Nodes)
                 if (node.Tag != null) ((Node)node.Tag).Populate(node);
@@ -149,6 +150,7 @@ namespace KMP_Editor
 
             SelectedNode.AddEntry();
             UpdateUI();
+            entryListBox.SelectedIndex = entryListBox.Items.Count - 1;
         }
 
         private void removeButton_Click(object sender, EventArgs e)
@@ -159,8 +161,10 @@ namespace KMP_Editor
             if (entryListBox.SelectedIndex < 0)
                 return;
 
+            int tmpIndex = entryListBox.SelectedIndex;
             SelectedNode.RemoveEntry(entryListBox.SelectedIndex);
             UpdateUI();
+            entryListBox.SelectedIndex = tmpIndex - 1;
         }
     }
 }

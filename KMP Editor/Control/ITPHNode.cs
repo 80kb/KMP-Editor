@@ -104,7 +104,7 @@ namespace KMP_Editor.Control
 
         public override string GetTitle(int index)
         {
-            return "Item Route " + index;
+            return "Point " + index;
         }
 
         public override void AddEntry()
