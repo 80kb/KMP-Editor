@@ -816,7 +816,7 @@ namespace KMP_Editor.Serial
             public float[] Position { get; set; }
             public float[] Rotation { get; set; }
             public CannonSetting Setting { get; set; }
-            public UInt16 ID { get; private set; }
+            public UInt16 ID { get; set; }
 
             public _CNPT()
             {
@@ -850,9 +850,9 @@ namespace KMP_Editor.Serial
 
         public class _MSPT : _ISectionEntry
         {
-            public float[] Position;
-            public float[] Rotation;
-            public UInt16 ID;
+            public float[] Position { get; set; }
+            public float[] Rotation { get; set; }
+            public UInt16 ID { get; private set; }
             public Int16 Setting;
 
             public _MSPT()
@@ -887,14 +887,32 @@ namespace KMP_Editor.Serial
 
         public class _STGI : _ISectionEntry
         {
-            public Byte LapCount;
-            public Byte PolePosition;
-            public Byte NarrowMode;
-            public Byte LensFlare;
-            public UInt32 FlareColor;
-            public Byte FlareTransparency;
+            public enum PolePositionEnum : Byte
+            {
+                Left = 0,
+                Right = 1
+            }
+
+            public enum NarrowModeEnum : Byte
+            {
+                Disabled = 0,
+                Enabled = 1
+            }
+
+            public enum LensFlareEnum : Byte
+            {
+                Disabled = 0,
+                Enabled = 1
+            }
+
+            public Byte LapCount { get; set; }
+            public PolePositionEnum PolePosition { get; set; }
+            public NarrowModeEnum NarrowMode { get; set; }
+            public LensFlareEnum LensFlare { get; set; }
+            public UInt32 FlareColor { get; set; }
+            public Byte FlareTransparency { get; set; }
             public Byte Padding;
-            public UInt16 Speed;              // for use with speed modifier code
+            public UInt16 Speed { get; set; }              // for use with speed modifier code
 
             public _STGI()
             {
@@ -916,9 +934,9 @@ namespace KMP_Editor.Serial
             public void Read(EndianReader reader)
             {
                 LapCount = reader.ReadByte();
-                PolePosition = reader.ReadByte();
-                NarrowMode = reader.ReadByte();
-                LensFlare = reader.ReadByte();
+                PolePosition = (PolePositionEnum)reader.ReadByte();
+                NarrowMode = (NarrowModeEnum)reader.ReadByte();
+                LensFlare = (LensFlareEnum)reader.ReadByte();
                 FlareColor = reader.ReadUInt32();
                 FlareTransparency = reader.ReadByte();
                 Padding = reader.ReadByte();
@@ -928,9 +946,9 @@ namespace KMP_Editor.Serial
             public void Write(EndianWriter writer)
             {
                 writer.WriteByte(LapCount);
-                writer.WriteByte(PolePosition);
-                writer.WriteByte(NarrowMode);
-                writer.WriteByte(LensFlare);
+                writer.WriteByte((byte)PolePosition);
+                writer.WriteByte((byte)NarrowMode);
+                writer.WriteByte((byte)LensFlare);
                 writer.WriteUInt32(FlareColor);
                 writer.WriteByte(FlareTransparency);
                 writer.WriteByte(Padding);

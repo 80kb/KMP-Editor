@@ -58,6 +58,8 @@ namespace KMP_Editor
             sectionTree.Nodes[7].Tag = new CAMENode(FileInstance);
             sectionTree.Nodes[8].Tag = new JGPTNode(FileInstance);
             sectionTree.Nodes[9].Tag = new CNPTNode(FileInstance);
+            sectionTree.Nodes[10].Tag = new MSPTNode(FileInstance);
+            sectionTree.Nodes[11].Tag = new STGINode(FileInstance);
 
             foreach(TreeNode node in sectionTree.Nodes)
                 if (node.Tag != null) ((Node)node.Tag).Populate(node);
