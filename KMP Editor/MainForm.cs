@@ -1,5 +1,6 @@
 using KMP_Editor.Control;
 using KMP_Editor.Serial;
+using System.Text;
 
 namespace KMP_Editor
 {
@@ -7,11 +8,13 @@ namespace KMP_Editor
     {
         private KMP FileInstance;
         private Node SelectedNode;
+        private bool UnsavedChanges;
 
         public MainForm()
         {
             InitializeComponent();
             LoadTreeIcons();
+            UnsavedChanges = false;
         }
 
         private void LoadTreeIcons()
@@ -75,6 +78,17 @@ namespace KMP_Editor
             {
                 entryListBox.Items.Add(SelectedNode.GetTitle(i));
             }
+
+            if (UnsavedChanges)
+            {
+                Text += "*";
+            }
+            else
+            {
+                StringBuilder sb = new StringBuilder();
+                foreach(char c in Text) { if(c != '*') sb.Append(c); }
+                Text = sb.ToString();
+            }
         }
 
         private void openMenuItem_Click(object sender, EventArgs e)
@@ -96,6 +110,8 @@ namespace KMP_Editor
             if (FileInstance != null && File.Exists(FileInstance.Filename))
             {
                 File.WriteAllBytes(FileInstance.Filename, FileInstance.Write());
+                UnsavedChanges = false;
+                UpdateUI();
             }
             else if (FileInstance != null)
             {
@@ -114,6 +130,8 @@ namespace KMP_Editor
             if (sfd.ShowDialog() == DialogResult.OK)
             {
                 File.WriteAllBytes(sfd.FileName, FileInstance.Write());
+                UnsavedChanges = false;
+                UpdateUI();
             }
         }
 
@@ -155,6 +173,7 @@ namespace KMP_Editor
                 return;
 
             SelectedNode.AddEntry();
+            UnsavedChanges = true;
             UpdateUI();
             entryListBox.SelectedIndex = entryListBox.Items.Count - 1;
         }
@@ -169,6 +188,7 @@ namespace KMP_Editor
 
             int tmpIndex = entryListBox.SelectedIndex;
             SelectedNode.RemoveEntry(entryListBox.SelectedIndex);
+            UnsavedChanges = true;
             UpdateUI();
             entryListBox.SelectedIndex = tmpIndex - 1;
         }
