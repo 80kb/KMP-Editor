@@ -152,7 +152,7 @@
             entryListBox.ItemHeight = 15;
             entryListBox.Location = new Point(6, 22);
             entryListBox.Name = "entryListBox";
-            entryListBox.Size = new Size(205, 199);
+            entryListBox.Size = new Size(243, 229);
             entryListBox.TabIndex = 2;
             entryListBox.SelectedIndexChanged += entryListBox_SelectedIndexChanged;
             // 
@@ -163,16 +163,16 @@
             entryPropertyGrid.Location = new Point(6, 22);
             entryPropertyGrid.Name = "entryPropertyGrid";
             entryPropertyGrid.PropertySort = PropertySort.NoSort;
-            entryPropertyGrid.Size = new Size(205, 263);
+            entryPropertyGrid.Size = new Size(243, 230);
             entryPropertyGrid.TabIndex = 3;
             entryPropertyGrid.ToolbarVisible = false;
             // 
             // addButton
             // 
             addButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            addButton.Location = new Point(6, 227);
+            addButton.Location = new Point(6, 260);
             addButton.Name = "addButton";
-            addButton.Size = new Size(108, 23);
+            addButton.Size = new Size(120, 23);
             addButton.TabIndex = 4;
             addButton.Text = "Add";
             addButton.UseVisualStyleBackColor = true;
@@ -181,9 +181,9 @@
             // removeButton
             // 
             removeButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            removeButton.Location = new Point(120, 227);
+            removeButton.Location = new Point(132, 260);
             removeButton.Name = "removeButton";
-            removeButton.Size = new Size(93, 23);
+            removeButton.Size = new Size(119, 23);
             removeButton.TabIndex = 5;
             removeButton.Text = "Remove";
             removeButton.UseVisualStyleBackColor = true;
@@ -196,9 +196,9 @@
             entryGroupBox.Controls.Add(removeButton);
             entryGroupBox.Controls.Add(entryListBox);
             entryGroupBox.Enabled = false;
-            entryGroupBox.Location = new Point(882, 27);
+            entryGroupBox.Location = new Point(844, 27);
             entryGroupBox.Name = "entryGroupBox";
-            entryGroupBox.Size = new Size(219, 256);
+            entryGroupBox.Size = new Size(257, 289);
             entryGroupBox.TabIndex = 6;
             entryGroupBox.TabStop = false;
             entryGroupBox.Text = "Entries";
@@ -208,9 +208,9 @@
             propertyGroupBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             propertyGroupBox.Controls.Add(entryPropertyGrid);
             propertyGroupBox.Enabled = false;
-            propertyGroupBox.Location = new Point(882, 289);
+            propertyGroupBox.Location = new Point(844, 322);
             propertyGroupBox.Name = "propertyGroupBox";
-            propertyGroupBox.Size = new Size(219, 291);
+            propertyGroupBox.Size = new Size(257, 258);
             propertyGroupBox.TabIndex = 7;
             propertyGroupBox.TabStop = false;
             propertyGroupBox.Text = "Properties";
@@ -221,7 +221,7 @@
             viewport.BackColor = SystemColors.ControlDark;
             viewport.Location = new Point(239, 35);
             viewport.Name = "viewport";
-            viewport.Size = new Size(637, 545);
+            viewport.Size = new Size(599, 545);
             viewport.TabIndex = 8;
             // 
             // sectionGroupBox

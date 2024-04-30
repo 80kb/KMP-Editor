@@ -10,6 +10,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DrawLib\DrawLib.csproj">
+      <Private>True</Private>
+    </ProjectReference>
     <ProjectReference Include="..\EndianLib\EndianLib.csproj">
       <Private>True</Private>
     </ProjectReference>

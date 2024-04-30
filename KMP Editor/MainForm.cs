@@ -64,7 +64,7 @@ namespace KMP_Editor
             sectionTree.Nodes[10].Tag = new MSPTNode(FileInstance);
             sectionTree.Nodes[11].Tag = new STGINode(FileInstance);
 
-            foreach(TreeNode node in sectionTree.Nodes)
+            foreach (TreeNode node in sectionTree.Nodes)
                 if (node.Tag != null) ((Node)node.Tag).Populate(node);
         }
 
@@ -86,7 +86,7 @@ namespace KMP_Editor
             else
             {
                 StringBuilder sb = new StringBuilder();
-                foreach(char c in Text) { if(c != '*') sb.Append(c); }
+                foreach (char c in Text) { if (c != '*') sb.Append(c); }
                 Text = sb.ToString();
             }
         }
