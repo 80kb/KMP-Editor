@@ -769,10 +769,10 @@ namespace KMP_Editor.Serial
 
         public class _JGPT : _ISectionEntry
         {
-            public float[] Position;
-            public float[] Rotation;
-            public UInt16 ID;
-            public Int16 Setting;
+            public float[] Position { get; set; }
+            public float[] Rotation { get; set; }
+            public Int16 Setting { get; set; }
+            public UInt16 ID { get; private set; }
 
             public _JGPT()
             {
@@ -806,10 +806,10 @@ namespace KMP_Editor.Serial
 
         public class _CNPT : _ISectionEntry
         {
-            public float[] Position;
-            public float[] Rotation;
-            public UInt16 ID;
-            public Int16 Setting;
+            public float[] Position { get; set; }
+            public float[] Rotation { get; set; }
+            public Int16 Setting { get; set; }
+            public UInt16 ID { get; private set; }
 
             public _CNPT()
             {
