@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KMP Editor", "KMP Editor\KM
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EndianLib", "EndianLib\EndianLib.csproj", "{2054C2CC-EB7F-45C4-B98C-207A8C8DE13E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DrawLib", "DrawLib\DrawLib.csproj", "{9F356EAF-038A-4CAF-8FAD-73F315B2D6CE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphicsLib", "GraphicsLib\GraphicsLib.csproj", "{BED5FE31-4629-40CB-B673-CACC0BF22F84}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{2054C2CC-EB7F-45C4-B98C-207A8C8DE13E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2054C2CC-EB7F-45C4-B98C-207A8C8DE13E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2054C2CC-EB7F-45C4-B98C-207A8C8DE13E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9F356EAF-038A-4CAF-8FAD-73F315B2D6CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9F356EAF-038A-4CAF-8FAD-73F315B2D6CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9F356EAF-038A-4CAF-8FAD-73F315B2D6CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9F356EAF-038A-4CAF-8FAD-73F315B2D6CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BED5FE31-4629-40CB-B673-CACC0BF22F84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BED5FE31-4629-40CB-B673-CACC0BF22F84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BED5FE31-4629-40CB-B673-CACC0BF22F84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BED5FE31-4629-40CB-B673-CACC0BF22F84}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
