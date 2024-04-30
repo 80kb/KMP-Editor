@@ -806,9 +806,16 @@ namespace KMP_Editor.Serial
 
         public class _CNPT : _ISectionEntry
         {
+            public enum CannonSetting : Int16
+            {
+                Straight = 0,
+                Curved = 1,
+                SlowCurved = 2
+            }
+
             public float[] Position { get; set; }
             public float[] Rotation { get; set; }
-            public Int16 Setting { get; set; }
+            public CannonSetting Setting { get; set; }
             public UInt16 ID { get; private set; }
 
             public _CNPT()
@@ -829,7 +836,7 @@ namespace KMP_Editor.Serial
                 Position = reader.ReadFloats(3);
                 Rotation = reader.ReadFloats(3);
                 ID = reader.ReadUInt16();
-                Setting = reader.ReadInt16();
+                Setting = (CannonSetting)reader.ReadInt16();
             }
 
             public void Write(EndianWriter writer)
@@ -837,7 +844,7 @@ namespace KMP_Editor.Serial
                 writer.WriteSingles(Position);
                 writer.WriteSingles(Rotation);
                 writer.WriteUInt16(ID);
-                writer.WriteInt16(Setting);
+                writer.WriteInt16((Int16)Setting);
             }
         }
 
