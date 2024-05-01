@@ -1,4 +1,4 @@
-﻿using KMP_Editor.Serial;
+﻿using KartLib.Serial;
 
 namespace KMP_Editor.Control
 {

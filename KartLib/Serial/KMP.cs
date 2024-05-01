@@ -1,4 +1,4 @@
-﻿namespace KMP_Editor.Serial
+﻿namespace KartLib.Serial
 {
     public class KMP
     {
@@ -240,8 +240,8 @@
 
         public class _ENPH : _ISectionEntry
         {
-            public Byte Start { get; internal set; }
-            public Byte Length { get; internal set; }
+            public Byte Start;
+            public Byte Length;
             public UInt16 Padding { get; private set; }
             public byte[] Previous { get; set; }
             public byte[] Next { get; set; }
@@ -318,8 +318,8 @@
 
         public class _ITPH : _ISectionEntry
         {
-            public Byte Start { get; internal set; }
-            public Byte Length { get; internal set; }
+            public Byte Start;
+            public Byte Length;
             public UInt16 Padding { get; private set; }
             public Byte[] Previous { get; set; }
             public Byte[] Next { get; set; }
@@ -404,8 +404,8 @@
 
         public class _CKPH : _ISectionEntry
         {
-            public Byte Start { get; internal set; }
-            public Byte Length { get; internal set; }
+            public Byte Start;
+            public Byte Length;
             public Byte[] Previous { get; set; }
             public Byte[] Next { get; set; }
             public UInt16 Padding { get; private set; }
@@ -445,7 +445,7 @@
 
         public class _GOBJ : _ISectionEntry
         {
-            public UInt16 ID { get; internal set; }
+            public UInt16 ID;
             public UInt16 Padding { get; private set; }
             public float[] Position { get; set; }
             public float[] Rotation { get; set; }
@@ -531,7 +531,7 @@
                 }
             }
 
-            public UInt16 PointCount { get; internal set; }
+            public UInt16 PointCount;
             public Byte Setting1 { get; set; }
             public Byte Setting2 { get; set; }
             public List<_Point> Points { get; private set; }

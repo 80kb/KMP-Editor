@@ -1,5 +1,5 @@
-﻿using KMP_Editor.Serial;
-using static KMP_Editor.Serial.KMP;
+﻿using KartLib.Serial;
+using static KartLib.Serial.KMP;
 
 namespace KMP_Editor.Control
 {

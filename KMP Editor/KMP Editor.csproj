@@ -13,7 +13,7 @@
     <ProjectReference Include="..\DrawLib\DrawLib.csproj">
       <Private>True</Private>
     </ProjectReference>
-    <ProjectReference Include="..\EndianLib\EndianLib.csproj">
+    <ProjectReference Include="..\KartLib\KartLib.csproj">
       <Private>True</Private>
     </ProjectReference>
   </ItemGroup>

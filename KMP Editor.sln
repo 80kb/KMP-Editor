@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EndianLib", "EndianLib\Endi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DrawLib", "DrawLib\DrawLib.csproj", "{BEA92E8E-C9BD-4855-9492-CD6BE9BE476C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KartLib", "KartLib\KartLib.csproj", "{DBEA097A-8C59-488E-833C-B67A87AF10B0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{BEA92E8E-C9BD-4855-9492-CD6BE9BE476C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BEA92E8E-C9BD-4855-9492-CD6BE9BE476C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BEA92E8E-C9BD-4855-9492-CD6BE9BE476C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBEA097A-8C59-488E-833C-B67A87AF10B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBEA097A-8C59-488E-833C-B67A87AF10B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBEA097A-8C59-488E-833C-B67A87AF10B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBEA097A-8C59-488E-833C-B67A87AF10B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
