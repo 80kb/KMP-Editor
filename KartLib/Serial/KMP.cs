@@ -177,7 +177,10 @@
 
             public _KTPT(EndianReader reader)
             {
-                Read(reader);
+                StartPosition = reader.ReadFloats(3);
+                StartRotation = reader.ReadFloats(3);
+                PlayerIndex = reader.ReadInt16();
+                Padding = reader.ReadUInt16();
             }
 
             public void Read(EndianReader reader)
@@ -216,7 +219,11 @@
 
             public _ENPT(EndianReader reader)
             {
-                Read(reader);
+                Position = reader.ReadFloats(3);
+                Scale = reader.ReadFloat();
+                Setting1 = reader.ReadUInt16();
+                Setting2 = reader.ReadByte();
+                Setting3 = reader.ReadByte();
             }
 
             public void Read(EndianReader reader)
@@ -257,7 +264,11 @@
 
             public _ENPH(EndianReader reader)
             {
-                Read(reader);
+                Start = reader.ReadByte();
+                Length = reader.ReadByte();
+                Previous = reader.ReadBytes(6);
+                Next = reader.ReadBytes(6);
+                Padding = reader.ReadUInt16();
             }
 
             public void Read(EndianReader reader)
@@ -296,7 +307,10 @@
 
             public _ITPT(EndianReader reader)
             {
-                Read(reader);
+                Position = reader.ReadFloats(3);
+                Scale = reader.ReadSingle();
+                Setting1 = reader.ReadUInt16();
+                Setting2 = reader.ReadUInt16();
             }
 
             public void Read(EndianReader reader)
@@ -335,7 +349,11 @@
 
             public _ITPH(EndianReader reader)
             {
-                Read(reader);
+                Start = reader.ReadByte();
+                Length = reader.ReadByte();
+                Previous = reader.ReadBytes(6);
+                Next = reader.ReadBytes(6);
+                Padding = reader.ReadUInt16();
             }
 
             public void Read(EndianReader reader)
@@ -378,7 +396,12 @@
 
             public _CKPT(EndianReader reader)
             {
-                Read(reader);
+                PositionL = reader.ReadFloats(2);
+                PositionR = reader.ReadFloats(2);
+                RespawnID = reader.ReadByte();
+                Type = reader.ReadSByte();
+                Previous = reader.ReadByte();
+                Next = reader.ReadByte();
             }
 
             public void Read(EndianReader reader)
@@ -421,7 +444,11 @@
 
             public _CKPH(EndianReader reader)
             {
-                Read(reader);
+                Start = reader.ReadByte();
+                Length = reader.ReadByte();
+                Previous = reader.ReadBytes(6);
+                Next = reader.ReadBytes(6);
+                Padding = reader.ReadUInt16();
             }
 
             public void Read(EndianReader reader)
@@ -468,7 +495,14 @@
 
             public _GOBJ(EndianReader reader)
             {
-                Read(reader);
+                ID = reader.ReadUInt16();
+                Padding = reader.ReadUInt16();
+                Position = reader.ReadFloats(3);
+                Rotation = reader.ReadFloats(3);
+                Scale = reader.ReadFloats(3);
+                RouteID = reader.ReadUInt16();
+                Settings = reader.ReadUInt16s(8);
+                Flag = reader.ReadUInt16();
             }
 
             public void Read(EndianReader reader)
@@ -513,7 +547,9 @@
 
                 public _Point(EndianReader reader)
                 {
-                    Read(reader);
+                    Position = reader.ReadFloats(3);
+                    Setting1 = reader.ReadUInt16();
+                    Setting2 = reader.ReadUInt16();
                 }
 
                 public void Read(EndianReader reader)
@@ -546,7 +582,15 @@
 
             public _POTI(EndianReader reader)
             {
-                Read(reader);
+                PointCount = reader.ReadUInt16();
+                Setting1 = reader.ReadByte();
+                Setting2 = reader.ReadByte();
+                Points = new List<_Point>();
+
+                for (int i = 0; i < PointCount; i++)
+                {
+                    Points.Add( new _Point(reader) );
+                }
             }
 
             public void Read(EndianReader reader)
@@ -629,7 +673,18 @@
 
             public _AREA(EndianReader reader)
             {
-                Read(reader);
+                Shape = (AreaShape)reader.ReadByte();
+                Type = (AreaType)reader.ReadByte();
+                CameraID = reader.ReadByte();
+                Priority = reader.ReadByte();
+                Position = reader.ReadFloats(3);
+                Rotation = reader.ReadFloats(3);
+                Scale = reader.ReadFloats(3);
+                Setting1 = reader.ReadUInt16();
+                Setting2 = reader.ReadUInt16();
+                RouteID = reader.ReadByte();
+                EnemyPointID = reader.ReadByte();
+                Padding = reader.ReadUInt16();
             }
 
             public void Read(EndianReader reader)
@@ -720,7 +775,22 @@
 
             public _CAME(EndianReader reader)
             {
-                Read(reader);
+                Type = (CameraType)reader.ReadByte();
+                Next = reader.ReadByte();
+                Shake = reader.ReadByte();
+                RouteID = reader.ReadByte();
+                MoveSpeed = reader.ReadUInt16();
+                ZoomSpeed = reader.ReadUInt16();
+                ViewSpeed = reader.ReadUInt16();
+                Start = reader.ReadByte();
+                Movie = reader.ReadByte();
+                Position = reader.ReadFloats(3);
+                Rotation = reader.ReadFloats(3);
+                ZoomStart = reader.ReadFloat();
+                ZoomEnd = reader.ReadFloat();
+                ViewStart = reader.ReadFloats(3);
+                ViewEnd = reader.ReadFloats(3);
+                TimeActive = reader.ReadFloat();
             }
 
             public void Read(EndianReader reader)
@@ -781,7 +851,10 @@
 
             public _JGPT(EndianReader reader)
             {
-                Read(reader);
+                Position = reader.ReadFloats(3);
+                Rotation = reader.ReadFloats(3);
+                ID = reader.ReadUInt16();
+                Setting = reader.ReadInt16();
             }
 
             public void Read(EndianReader reader)
@@ -825,7 +898,10 @@
 
             public _CNPT(EndianReader reader)
             {
-                Read(reader);
+                Position = reader.ReadFloats(3);
+                Rotation = reader.ReadFloats(3);
+                ID = reader.ReadUInt16();
+                Setting = (CannonSetting)reader.ReadInt16();
             }
 
             public void Read(EndianReader reader)
@@ -862,7 +938,10 @@
 
             public _MSPT(EndianReader reader)
             {
-                Read(reader);
+                Position = reader.ReadFloats(3);
+                Rotation = reader.ReadFloats(3);
+                ID = reader.ReadUInt16();
+                Setting = reader.ReadInt16();
             }
 
             public void Read(EndianReader reader)
@@ -925,7 +1004,14 @@
 
             public _STGI(EndianReader reader)
             {
-                Read(reader);
+                LapCount = reader.ReadByte();
+                PolePosition = (PolePositionEnum)reader.ReadByte();
+                NarrowMode = (NarrowModeEnum)reader.ReadByte();
+                LensFlare = (LensFlareEnum)reader.ReadByte();
+                FlareColor = reader.ReadUInt32();
+                FlareTransparency = reader.ReadByte();
+                Padding = reader.ReadByte();
+                Speed = reader.ReadUInt16();
             }
 
             public void Read(EndianReader reader)

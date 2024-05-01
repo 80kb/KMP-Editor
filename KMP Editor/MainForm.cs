@@ -6,19 +6,23 @@ namespace KMP_Editor
 {
     public partial class MainForm : Form
     {
-        private KMP FileInstance;
-        private Node SelectedNode;
-        private bool UnsavedChanges;
+        private KMP?  FileInstance;
+        private Node? SelectedNode;
+        private bool  UnsavedChanges;
 
         public MainForm()
         {
-            InitializeComponent();
-            LoadTreeIcons();
             UnsavedChanges = false;
+
+            InitializeComponent();
+            InitializeUI();
         }
 
-        private void LoadTreeIcons()
+        // Helper functions
+
+        private void InitializeUI()
         {
+            // Load tree icons
             ImageList icons = new ImageList();
             icons.Images.Add(Properties.Resources.star);
             icons.Images.Add(Properties.Resources.balloons);
@@ -42,7 +46,7 @@ namespace KMP_Editor
             }
         }
 
-        private void Populate()
+        private void PopulateUI()
         {
             if (FileInstance == null)
                 return;
@@ -70,11 +74,11 @@ namespace KMP_Editor
 
         private void UpdateUI()
         {
-            Populate();
+            PopulateUI();
 
             entryListBox.Items.Clear();
             entryPropertyGrid.SelectedObject = null;
-            for (int i = 0; i < SelectedNode.GetData().Count; i++)
+            for (int i = 0; i < SelectedNode?.GetData().Count; i++)
             {
                 entryListBox.Items.Add(SelectedNode.GetTitle(i));
             }
@@ -91,6 +95,8 @@ namespace KMP_Editor
             }
         }
 
+        // Event handlers
+
         private void openMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
@@ -101,7 +107,7 @@ namespace KMP_Editor
                 byte[] buffer = File.ReadAllBytes(ofd.FileName);
                 FileInstance = new KMP(buffer, ofd.FileName);
                 Text = "KMP Editor - " + Path.GetFileName(FileInstance.Filename);
-                Populate();
+                PopulateUI();
             }
         }
 
@@ -139,7 +145,7 @@ namespace KMP_Editor
         {
             FileInstance = new KMP();
             Text = "KMP Editor - " + Path.GetFileName(FileInstance.Filename);
-            Populate();
+            PopulateUI();
         }
 
         private void sectionTree_AfterSelect(object sender, TreeViewEventArgs e)
