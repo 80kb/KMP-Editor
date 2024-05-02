@@ -54,7 +54,7 @@
             removeButton = new Button();
             entryGroupBox = new GroupBox();
             propertyGroupBox = new GroupBox();
-            viewport = new Panel();
+            viewport = new Viewport2D();
             sectionGroupBox = new GroupBox();
             menuStrip1.SuspendLayout();
             entryGroupBox.SuspendLayout();
@@ -273,7 +273,7 @@
         private Button removeButton;
         private GroupBox entryGroupBox;
         private GroupBox propertyGroupBox;
-        private Panel viewport;
+        private Viewport2D viewport;
         private GroupBox sectionGroupBox;
     }
 }
