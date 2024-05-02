@@ -23,6 +23,7 @@ namespace KMP_Editor
 
         private void InitializeUI()
         {
+
             // Load tree icons
             ImageList icons = new ImageList();
             icons.Images.Add(Properties.Resources.star);
@@ -55,6 +56,7 @@ namespace KMP_Editor
             sectionTree.Enabled = true;
             propertyGroupBox.Enabled = true;
             entryGroupBox.Enabled = true;
+            viewport.ClearShapes();
 
             sectionTree.Nodes[0].Tag = new KTPTNode(FileInstance);
             sectionTree.Nodes[1].Tag = new ENPHNode(FileInstance);
@@ -70,7 +72,7 @@ namespace KMP_Editor
             sectionTree.Nodes[11].Tag = new STGINode(FileInstance);
 
             foreach (TreeNode node in sectionTree.Nodes)
-                if (node.Tag != null) ((Node)node.Tag).Populate(node, viewport);
+                if (node.Tag != null) ((Node)node.Tag).Populate(node);
         }
 
         private void UpdateUI()

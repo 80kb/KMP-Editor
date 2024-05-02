@@ -1,5 +1,4 @@
-﻿using DrawLib;
-using static KartLib.Serial.KMP;
+﻿using static KartLib.Serial.KMP;
 
 namespace KMP_Editor.Control
 {
@@ -13,7 +12,7 @@ namespace KMP_Editor.Control
 
         public abstract void RemoveEntry(int index);
 
-        public virtual void Populate(TreeNode node, Viewport2D viewport)
+        public virtual void Populate(TreeNode node)
         {
             node.Tag = this;
         }

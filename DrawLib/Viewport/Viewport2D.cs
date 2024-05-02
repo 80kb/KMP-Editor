@@ -37,6 +37,11 @@ namespace System.Windows.Forms
             CenterAt(shape.GetPosition());
         }
 
+        public void ClearShapes()
+        {
+            this.Shapes.Clear();
+        }
+
         public Vector2f GetOffset() { return this.Offset; }
 
         // Private methods

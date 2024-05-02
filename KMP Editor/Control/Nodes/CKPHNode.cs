@@ -65,7 +65,7 @@ namespace KMP_Editor.Control.Nodes
             }
         }
 
-        public override void Populate(TreeNode node, Viewport2D viewport)
+        public override void Populate(TreeNode node)
         {
             List<_ISectionEntry> ckphData = GetData();
 

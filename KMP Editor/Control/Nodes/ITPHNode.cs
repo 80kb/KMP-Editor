@@ -65,9 +65,9 @@ namespace KMP_Editor.Control.Nodes
             }
         }
 
-        public override void Populate(TreeNode node, Viewport2D viewport)
+        public override void Populate(TreeNode node)
         {
-            base.Populate(node, viewport);
+            base.Populate(node);
             node.Nodes.Clear();
             for (int i = 0; i < GetData().Count; i++)
             {

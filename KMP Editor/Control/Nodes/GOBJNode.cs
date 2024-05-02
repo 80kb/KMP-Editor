@@ -49,7 +49,7 @@ namespace KMP_Editor.Control.Nodes
                 if (GOBJ.Entries[i].ID == (ushort)id) GOBJ.RemoveEntry(i);
         }
 
-        public override void Populate(TreeNode node, Viewport2D viewport)
+        public override void Populate(TreeNode node)
         {
             List<_ISectionEntry> data = GetData();
 
