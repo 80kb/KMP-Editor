@@ -1,7 +1,7 @@
 ﻿using KartLib.Serial;
 using static KartLib.Serial.KMP;
 
-namespace KMP_Editor.Control
+namespace KMP_Editor.Control.Nodes
 {
     public class ENPHNode : Node
     {
@@ -19,7 +19,7 @@ namespace KMP_Editor.Control
         public override List<_ISectionEntry> GetData()
         {
             List<_ISectionEntry> result = new List<_ISectionEntry>();
-            for(int i = 0; i < ENPH.Length(); i++)
+            for (int i = 0; i < ENPH.Length(); i++)
             {
                 result.Add(ENPH.GetEntry(i));
             }
@@ -43,21 +43,21 @@ namespace KMP_Editor.Control
             if (lastEntry.Start == byte.MaxValue)
                 return;
 
-            _ENPH newEntry  = (_ENPH)ENPH.AddEntry();
+            _ENPH newEntry = (_ENPH)ENPH.AddEntry();
             newEntry.Start = (byte)(lastEntry.Start + lastEntry.Length);
         }
 
         public override void RemoveEntry(int index)
         {
             _ENPH node = (_ENPH)ENPH.GetEntry(index);
-            for(int i = node.Start; i < (node.Length + node.Start); i++)
+            for (int i = node.Start; i < node.Length + node.Start; i++)
             {
                 ENPT.RemoveEntry(node.Start);
             }
             ENPH.RemoveEntry(index);
 
             byte position = node.Start;
-            for(int i = index; i < ENPH.Length(); i++)
+            for (int i = index; i < ENPH.Length(); i++)
             {
                 _ENPH current = (_ENPH)ENPH.GetEntry(i);
                 current.Start = position;
@@ -65,7 +65,7 @@ namespace KMP_Editor.Control
             }
         }
 
-        public override void Populate(TreeNode node)
+        public override void Populate(TreeNode node, Viewport2D viewport)
         {
             List<_ISectionEntry> enphData = GetData();
 
@@ -73,7 +73,7 @@ namespace KMP_Editor.Control
             node.Tag = this;
             for (int i = 0; i < enphData.Count; i++)
             {
-                ENPHGroupNode enphGroupNode = new ENPHGroupNode(this.KMP, i);
+                ENPHGroupNode enphGroupNode = new ENPHGroupNode(KMP, i);
 
                 TreeNode treeNode = new TreeNode("Group " + i);
                 treeNode.Tag = enphGroupNode;
@@ -99,7 +99,7 @@ namespace KMP_Editor.Control
         public override List<_ISectionEntry> GetData()
         {
             List<_ISectionEntry> result = new List<_ISectionEntry>();
-            for(int i = ENPH.Start; i < (ENPH.Start + ENPH.Length); i++)
+            for (int i = ENPH.Start; i < ENPH.Start + ENPH.Length; i++)
             {
                 result.Add(ENPT.GetEntry(i));
             }
@@ -113,7 +113,7 @@ namespace KMP_Editor.Control
 
         public override void AddEntry()
         {
-            if(ENPH.Length + 1 == byte.MaxValue)
+            if (ENPH.Length + 1 == byte.MaxValue)
                 return;
 
             ENPT.AddEntry(ENPH.Start + ENPH.Length);

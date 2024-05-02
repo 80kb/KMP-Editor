@@ -1,4 +1,4 @@
-﻿namespace DrawLib.Shapes
+﻿namespace DrawLib
 {
     public abstract class Shape
     {
@@ -29,6 +29,5 @@
         {
             return Position;
         }
-
     }
 }

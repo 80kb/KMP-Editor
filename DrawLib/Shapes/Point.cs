@@ -6,6 +6,13 @@
         private RectangleF Rect;
         private SolidBrush Brush;
 
+        public Point(Vector2f position)
+        {
+            this.Position = position;
+            this.Brush    = new SolidBrush(Color.Blue);
+            this.Rect     = new RectangleF(position.X - (Size / 2), position.Y - (Size / 2), Size, Size);
+        }
+
         public Point(Vector2f position, Color color)
         {
             this.Position   = position;

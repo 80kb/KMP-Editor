@@ -1,7 +1,7 @@
 ﻿using KartLib.Serial;
 using static KartLib.Serial.KMP;
 
-namespace KMP_Editor.Control
+namespace KMP_Editor.Control.Nodes
 {
     public class STGINode : Node
     {

@@ -1,7 +1,7 @@
 ﻿using KartLib.Serial;
 using static KartLib.Serial.KMP;
 
-namespace KMP_Editor.Control
+namespace KMP_Editor.Control.Nodes
 {
     public class MSPTNode : Node
     {
@@ -15,7 +15,7 @@ namespace KMP_Editor.Control
         public override List<_ISectionEntry> GetData()
         {
             List<_ISectionEntry> result = new List<_ISectionEntry>();
-            foreach(_MSPT mspt in MSPT.Entries)
+            foreach (_MSPT mspt in MSPT.Entries)
                 result.Add(mspt);
 
             return result;

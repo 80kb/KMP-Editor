@@ -1,3 +1,4 @@
+using KMP_Editor.Control.Nodes;
 using KMP_Editor.Control;
 using KartLib.Serial;
 using System.Text;
@@ -69,7 +70,7 @@ namespace KMP_Editor
             sectionTree.Nodes[11].Tag = new STGINode(FileInstance);
 
             foreach (TreeNode node in sectionTree.Nodes)
-                if (node.Tag != null) ((Node)node.Tag).Populate(node);
+                if (node.Tag != null) ((Node)node.Tag).Populate(node, viewport);
         }
 
         private void UpdateUI()

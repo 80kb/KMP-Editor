@@ -1,7 +1,7 @@
 ﻿using KartLib.Serial;
 using static KartLib.Serial.KMP;
 
-namespace KMP_Editor.Control
+namespace KMP_Editor.Control.Nodes
 {
     public class POTINode : Node
     {
@@ -15,8 +15,8 @@ namespace KMP_Editor.Control
         public override List<_ISectionEntry> GetData()
         {
             List<_ISectionEntry> result = new List<_ISectionEntry>();
-            for(int i = 0; i < POTI.Entries.Count; i++)
-                result.Add(POTI.Entries[i]); 
+            for (int i = 0; i < POTI.Entries.Count; i++)
+                result.Add(POTI.Entries[i]);
 
             return result;
         }
@@ -36,13 +36,13 @@ namespace KMP_Editor.Control
             POTI.RemoveEntry(index);
         }
 
-        public override void Populate(TreeNode node)
+        public override void Populate(TreeNode node, Viewport2D viewport)
         {
             List<_ISectionEntry> data = GetData();
 
             node.Nodes.Clear();
             node.Tag = this;
-            for(int i = 0; i < data.Count; i++)
+            for (int i = 0; i < data.Count; i++)
             {
                 POTIPointNode point = new POTIPointNode((_POTI)data[i]);
                 TreeNode treeNode = new TreeNode("Group " + i);
@@ -65,8 +65,8 @@ namespace KMP_Editor.Control
 
         public override List<_ISectionEntry> GetData()
         {
-            List<_ISectionEntry> result = new List<_ISectionEntry> ();
-            foreach(_POTI._Point point in POTI.Points)
+            List<_ISectionEntry> result = new List<_ISectionEntry>();
+            foreach (_POTI._Point point in POTI.Points)
                 result.Add(point);
 
             return result;

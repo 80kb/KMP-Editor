@@ -1,39 +1,39 @@
 ﻿using KartLib.Serial;
 using static KartLib.Serial.KMP;
 
-namespace KMP_Editor.Control
+namespace KMP_Editor.Control.Nodes
 {
-    public class JGPTNode : Node
+    public class CAMENode : Node
     {
-        public _Section<_JGPT> JGPT { get; set; }
+        public _Section<_CAME> CAME { get; set; }
 
-        public JGPTNode(KMP kmp)
+        public CAMENode(KMP kmp)
         {
-            JGPT = kmp.JGPT;
+            CAME = kmp.CAME;
         }
 
         public override List<_ISectionEntry> GetData()
         {
             List<_ISectionEntry> result = new List<_ISectionEntry>();
-            foreach(_JGPT jgpt in JGPT.Entries)
-                result.Add(jgpt);
+            foreach (_CAME came in CAME.Entries)
+                result.Add(came);
 
             return result;
         }
 
         public override string GetTitle(int index)
         {
-            return "Respawn " + index;
+            return "Camera " + index;
         }
 
         public override void AddEntry()
         {
-            JGPT.AddEntry();
+            CAME.AddEntry();
         }
 
         public override void RemoveEntry(int index)
         {
-            JGPT.RemoveEntry(index);
+            CAME.RemoveEntry(index);
         }
     }
 }

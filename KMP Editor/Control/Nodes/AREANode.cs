@@ -1,39 +1,39 @@
 ﻿using KartLib.Serial;
 using static KartLib.Serial.KMP;
 
-namespace KMP_Editor.Control
+namespace KMP_Editor.Control.Nodes
 {
-    public class CAMENode : Node
+    public class AREANode : Node
     {
-        public _Section<_CAME> CAME { get; set; }
+        public _Section<_AREA> AREA { get; set; }
 
-        public CAMENode(KMP kmp)
+        public AREANode(KMP kmp)
         {
-            CAME = kmp.CAME;
+            AREA = kmp.AREA;
         }
 
         public override List<_ISectionEntry> GetData()
         {
             List<_ISectionEntry> result = new List<_ISectionEntry>();
-            foreach(_CAME came in CAME.Entries)
-                result.Add(came);
+            foreach (_AREA area in AREA.Entries)
+                result.Add(area);
 
             return result;
         }
 
         public override string GetTitle(int index)
         {
-            return "Camera " + index;
+            return "Area " + index;
         }
 
         public override void AddEntry()
         {
-            CAME.AddEntry();
+            AREA.AddEntry();
         }
 
         public override void RemoveEntry(int index)
         {
-            CAME.RemoveEntry(index);
+            AREA.RemoveEntry(index);
         }
     }
 }

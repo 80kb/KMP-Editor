@@ -1,7 +1,7 @@
 ﻿using KartLib.Serial;
 using static KartLib.Serial.KMP;
 
-namespace KMP_Editor.Control
+namespace KMP_Editor.Control.Nodes
 {
     public class CKPHNode : Node
     {
@@ -12,14 +12,14 @@ namespace KMP_Editor.Control
         public CKPHNode(KMP kmp)
         {
             KMP = kmp;
-            CKPH = kmp.CKPH;            
+            CKPH = kmp.CKPH;
             CKPT = kmp.CKPT;
         }
 
         public override List<_ISectionEntry> GetData()
         {
             List<_ISectionEntry> result = new List<_ISectionEntry>();
-            for(int i = 0; i < CKPH.Length(); i++)
+            for (int i = 0; i < CKPH.Length(); i++)
             {
                 result.Add(CKPH.GetEntry(i));
             }
@@ -43,21 +43,21 @@ namespace KMP_Editor.Control
             if (lastEntry.Start == byte.MaxValue)
                 return;
 
-            _CKPH newEntry  = (_CKPH)CKPH.AddEntry();
+            _CKPH newEntry = (_CKPH)CKPH.AddEntry();
             newEntry.Start = (byte)(lastEntry.Start + lastEntry.Length);
         }
 
         public override void RemoveEntry(int index)
         {
             _CKPH node = (_CKPH)CKPH.GetEntry(index);
-            for(int i = node.Start; i < (node.Length + node.Start); i++)
+            for (int i = node.Start; i < node.Length + node.Start; i++)
             {
                 CKPT.RemoveEntry(node.Start);
             }
             CKPH.RemoveEntry(index);
 
             byte position = node.Start;
-            for(int i = index; i < CKPH.Length(); i++)
+            for (int i = index; i < CKPH.Length(); i++)
             {
                 _CKPH current = (_CKPH)CKPH.GetEntry(i);
                 current.Start = position;
@@ -65,7 +65,7 @@ namespace KMP_Editor.Control
             }
         }
 
-        public override void Populate(TreeNode node)
+        public override void Populate(TreeNode node, Viewport2D viewport)
         {
             List<_ISectionEntry> ckphData = GetData();
 
@@ -73,7 +73,7 @@ namespace KMP_Editor.Control
             node.Tag = this;
             for (int i = 0; i < ckphData.Count; i++)
             {
-                CKPHGroupNode ckphGroupNode = new CKPHGroupNode(this.KMP, i);
+                CKPHGroupNode ckphGroupNode = new CKPHGroupNode(KMP, i);
 
                 TreeNode treeNode = new TreeNode("Group " + i);
                 treeNode.Tag = ckphGroupNode;
@@ -99,7 +99,7 @@ namespace KMP_Editor.Control
         public override List<_ISectionEntry> GetData()
         {
             List<_ISectionEntry> result = new List<_ISectionEntry>();
-            for(int i = CKPH.Start; i < (CKPH.Start + CKPH.Length); i++)
+            for (int i = CKPH.Start; i < CKPH.Start + CKPH.Length; i++)
             {
                 result.Add(CKPT.GetEntry(i));
             }
@@ -113,7 +113,7 @@ namespace KMP_Editor.Control
 
         public override void AddEntry()
         {
-            if(CKPH.Length + 1 == byte.MaxValue)
+            if (CKPH.Length + 1 == byte.MaxValue)
                 return;
 
             CKPT.AddEntry(CKPH.Start + CKPH.Length);

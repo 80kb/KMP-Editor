@@ -1,7 +1,7 @@
 ﻿using KartLib.Serial;
 using static KartLib.Serial.KMP;
 
-namespace KMP_Editor.Control
+namespace KMP_Editor.Control.Nodes
 {
     public class GOBJNode : Node
     {
@@ -15,13 +15,13 @@ namespace KMP_Editor.Control
         public override List<_ISectionEntry> GetData()
         {
             List<_ISectionEntry> result = new List<_ISectionEntry>();
-            List<UInt16> uniqueIds = new List<UInt16>();
+            List<ushort> uniqueIds = new List<ushort>();
             foreach (_GOBJ obj in GOBJ.Entries)
             {
                 if (!uniqueIds.Contains(obj.ID)) uniqueIds.Add(obj.ID);
             }
 
-            foreach (UInt16 id in uniqueIds) result.Add(new GOBJGroupNode(GOBJ, id));
+            foreach (ushort id in uniqueIds) result.Add(new GOBJGroupNode(GOBJ, id));
             return result;
         }
 
@@ -34,7 +34,7 @@ namespace KMP_Editor.Control
         {
             // open window to determine which object
             ObjectBrowser ob = new ObjectBrowser();
-            if(ob.ShowDialog() == DialogResult.OK)
+            if (ob.ShowDialog() == DialogResult.OK)
             {
                 _GOBJ entry = (_GOBJ)GOBJ.AddEntry();
                 entry.ID = ob.SelectedID;
@@ -49,7 +49,7 @@ namespace KMP_Editor.Control
                 if (GOBJ.Entries[i].ID == (ushort)id) GOBJ.RemoveEntry(i);
         }
 
-        public override void Populate(TreeNode node)
+        public override void Populate(TreeNode node, Viewport2D viewport)
         {
             List<_ISectionEntry> data = GetData();
 
@@ -74,7 +74,7 @@ namespace KMP_Editor.Control
         private _Section<_GOBJ> GOBJ;
         internal ObjectIDEnum ID;
 
-        public GOBJGroupNode(_Section<_GOBJ> gobj, UInt16 id)
+        public GOBJGroupNode(_Section<_GOBJ> gobj, ushort id)
         {
             ID = (ObjectIDEnum)id;
             Objects = new List<_ISectionEntry>();

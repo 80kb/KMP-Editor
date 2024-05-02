@@ -1,7 +1,7 @@
 ﻿using KartLib.Serial;
 using static KartLib.Serial.KMP;
 
-namespace KMP_Editor.Control
+namespace KMP_Editor.Control.Nodes
 {
     public class ITPHNode : Node
     {
@@ -11,7 +11,7 @@ namespace KMP_Editor.Control
 
         public ITPHNode(KMP kmp)
         {
-            this.KMP = kmp;
+            KMP = kmp;
             ITPH = kmp.ITPH;
             ITPT = kmp.ITPT;
         }
@@ -50,7 +50,7 @@ namespace KMP_Editor.Control
         public override void RemoveEntry(int index)
         {
             _ITPH node = (_ITPH)ITPH.GetEntry(index);
-            for (int i = node.Start; i < (node.Length + node.Start); i++)
+            for (int i = node.Start; i < node.Length + node.Start; i++)
             {
                 ITPT.RemoveEntry(node.Start);
             }
@@ -65,13 +65,13 @@ namespace KMP_Editor.Control
             }
         }
 
-        public override void Populate(TreeNode node)
+        public override void Populate(TreeNode node, Viewport2D viewport)
         {
-            base.Populate(node);
+            base.Populate(node, viewport);
             node.Nodes.Clear();
             for (int i = 0; i < GetData().Count; i++)
             {
-                ITPHGroupNode itphGroupNode = new ITPHGroupNode(this.KMP, i);
+                ITPHGroupNode itphGroupNode = new ITPHGroupNode(KMP, i);
                 TreeNode treeNode = new TreeNode("Group " + i);
                 treeNode.Tag = itphGroupNode;
                 treeNode.ImageIndex = 2;
@@ -95,7 +95,7 @@ namespace KMP_Editor.Control
         public override List<_ISectionEntry> GetData()
         {
             List<_ISectionEntry> result = new List<_ISectionEntry>();
-            for (int i = ITPH.Start; i < (ITPH.Start + ITPH.Length); i++)
+            for (int i = ITPH.Start; i < ITPH.Start + ITPH.Length; i++)
             {
                 result.Add(ITPT.GetEntry(i));
             }

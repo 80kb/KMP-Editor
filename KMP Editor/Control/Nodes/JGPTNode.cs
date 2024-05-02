@@ -1,39 +1,39 @@
 ﻿using KartLib.Serial;
 using static KartLib.Serial.KMP;
 
-namespace KMP_Editor.Control
+namespace KMP_Editor.Control.Nodes
 {
-    public class AREANode : Node
+    public class JGPTNode : Node
     {
-        public _Section<_AREA> AREA { get; set; }
+        public _Section<_JGPT> JGPT { get; set; }
 
-        public AREANode(KMP kmp)
+        public JGPTNode(KMP kmp)
         {
-            AREA = kmp.AREA;
+            JGPT = kmp.JGPT;
         }
 
         public override List<_ISectionEntry> GetData()
         {
             List<_ISectionEntry> result = new List<_ISectionEntry>();
-            foreach(_AREA area in AREA.Entries)
-                result.Add(area);
+            foreach (_JGPT jgpt in JGPT.Entries)
+                result.Add(jgpt);
 
             return result;
         }
 
         public override string GetTitle(int index)
         {
-            return "Area " + index;
+            return "Respawn " + index;
         }
 
         public override void AddEntry()
         {
-            AREA.AddEntry();
+            JGPT.AddEntry();
         }
 
         public override void RemoveEntry(int index)
         {
-            AREA.RemoveEntry(index);
+            JGPT.RemoveEntry(index);
         }
     }
 }
