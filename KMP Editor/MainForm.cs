@@ -166,7 +166,7 @@ namespace KMP_Editor
             {
                 entryListBox.Items.Add(node.GetTitle(i));
             }
-            if (entryListBox.Items.Count > 0) entryListBox.SelectedIndex = 0;
+            if (entryListBox.Items.Count > 0) entryListBox.SelectedIndex = entryListBox.Items.Count - 1;
         }
 
         private void entryListBox_SelectedIndexChanged(object sender, EventArgs e)
