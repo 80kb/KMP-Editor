@@ -1,4 +1,4 @@
-﻿namespace DrawLib.Shapes
+﻿namespace KMP_Editor.Viewport.Shapes
 {
     public class Point
     {
@@ -26,47 +26,47 @@
 
         public Vector2f RectPosition
         {
-            get { return new Vector2f(RectX, RectY);}
+            get { return new Vector2f(RectX, RectY); }
             set { RectX = value.X; RectY = value.Y; }
         }
         public float RectX
         {
-            get { return _rect.X + (Size / 2); }
-            set { _rect.X = value - (Size / 2); }
+            get { return _rect.X + Size / 2; }
+            set { _rect.X = value - Size / 2; }
         }
         public float RectY
         {
-            get { return _rect.Y + (Size / 2); }
-            set { _rect.Y = value - (Size / 2); }
+            get { return _rect.Y + Size / 2; }
+            set { _rect.Y = value - Size / 2; }
         }
 
         public Point()
         {
-            this.X      = 0;
-            this.Y      = 0;
-            this._rect   = new RectangleF(X - (Size / 2), Y - (Size / 2), Size, Size);
-            this._brush  = new SolidBrush(Color.Blue);
+            X = 0;
+            Y = 0;
+            _rect = new RectangleF(X - Size / 2, Y - Size / 2, Size, Size);
+            _brush = new SolidBrush(Color.Blue);
         }
 
         public Point(Vector2f position)
         {
-            this.X        = position.X;
-            this.Y        = position.Y;
-            this._rect     = new RectangleF(position.X - (Size / 2), position.Y - (Size / 2), Size, Size);
-            this._brush    = new SolidBrush(Color.Blue);
+            X = position.X;
+            Y = position.Y;
+            _rect = new RectangleF(position.X - Size / 2, position.Y - Size / 2, Size, Size);
+            _brush = new SolidBrush(Color.Blue);
         }
 
         public Point(Vector2f position, Color color)
         {
-            this.X        = position.X;
-            this.Y        = position.Y;
-            this._rect     = new RectangleF(position.X - (Size / 2), position.Y - (Size / 2), Size, Size);
-            this._brush    = new SolidBrush(color);
+            X = position.X;
+            Y = position.Y;
+            _rect = new RectangleF(position.X - Size / 2, position.Y - Size / 2, Size, Size);
+            _brush = new SolidBrush(color);
         }
 
         public void Draw(Graphics g)
         {
-            if(RectX > 0 && RectY > 0)
+            if (RectX > 0 && RectY > 0)
                 g.FillEllipse(_brush, _rect);
         }
 

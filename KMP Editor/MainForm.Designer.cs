@@ -219,6 +219,7 @@
             // viewport
             // 
             viewport.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            viewport.AutoSize = true;
             viewport.BackColor = SystemColors.ControlDark;
             viewport.Location = new Point(239, 35);
             viewport.Name = "viewport";

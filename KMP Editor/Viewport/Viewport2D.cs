@@ -1,4 +1,4 @@
-﻿using DrawLib.Shapes;
+﻿using KMP_Editor.Viewport.Shapes;
 
 namespace System.Windows.Forms
 {
@@ -6,21 +6,21 @@ namespace System.Windows.Forms
     {
         private Graphics?                   Graphics;
         private List<Polygon>               Shapes;
-        private List<DrawLib.Shapes.Point>  Points;
+        private List<KMP_Editor.Viewport.Shapes.Point>  Points;
 
         public const float  ZoomRate = 0.05f;
         public float        Zoom = 1f;
         private Vector2f    Offset;
         private Vector2f    MouseDelta;
 
-        private DrawLib.Shapes.Point?   Dragging = null;
+        private KMP_Editor.Viewport.Shapes.Point?   Dragging = null;
         private bool                    Panning  = false;
 
         public Viewport2D() : base()
         {
             this.DoubleBuffered = true;
             this.Shapes         = new List<Polygon>();
-            this.Points         = new List<DrawLib.Shapes.Point>();
+            this.Points         = new List<KMP_Editor.Viewport.Shapes.Point>();
             this.Offset         = new Vector2f();
             this.MouseDelta     = new Vector2f();
 
@@ -63,7 +63,7 @@ namespace System.Windows.Forms
 
             foreach(Polygon shape in this.Shapes)
             {
-                foreach(DrawLib.Shapes.Point point in shape.Points)
+                foreach(KMP_Editor.Viewport.Shapes.Point point in shape.Points)
                 {
                     point.RectX = (point.X + Offset.X) * Zoom;
                     point.RectY = (point.Y + Offset.Y) * Zoom;
@@ -72,9 +72,9 @@ namespace System.Windows.Forms
             }
         }
 
-        private DrawLib.Shapes.Point? GetCurrentCollider(float MouseX, float MouseY)
+        private KMP_Editor.Viewport.Shapes.Point? GetCurrentCollider(float MouseX, float MouseY)
         {
-            foreach (DrawLib.Shapes.Point point in this.Points)
+            foreach (KMP_Editor.Viewport.Shapes.Point point in this.Points)
             {
                 if (point.Colliding(MouseX, MouseY))
                     return point;
@@ -104,7 +104,7 @@ namespace System.Windows.Forms
             }
             else if (e.Button == MouseButtons.Left)
             {
-                DrawLib.Shapes.Point? collider = GetCurrentCollider(e.Location.X, e.Location.Y);
+                KMP_Editor.Viewport.Shapes.Point? collider = GetCurrentCollider(e.Location.X, e.Location.Y);
                 if (collider != null && this.Dragging == null)
                     this.Dragging = collider;
             }
@@ -144,7 +144,7 @@ namespace System.Windows.Forms
                 }
             }
 
-            DrawLib.Shapes.Point? collidee = GetCurrentCollider(e.Location.X, e.Location.Y);
+            KMP_Editor.Viewport.Shapes.Point? collidee = GetCurrentCollider(e.Location.X, e.Location.Y);
             if (collidee != null)
                 Cursor.Current = Cursors.SizeAll;
         }

@@ -162,8 +162,8 @@
         
         public class _KTPT : _ISectionEntry
         {
-            public float[] StartPosition { get; set; }
-            public float[] StartRotation { get; set; }
+            public Vector3f StartPosition { get; set; }
+            public Vector3f StartRotation { get; set; }
             public Int16 PlayerIndex { get; set; }
             public UInt16 Padding { get; private set; }
 
@@ -202,7 +202,7 @@
 
         public class _ENPT : _ISectionEntry
         {
-            public float[] Position { get; set; }
+            public Vector3f Position { get; set; }
             public float Scale { get; set; }
             public UInt16 Setting1 { get; set; }
             public Byte Setting2 { get; set; }
@@ -292,7 +292,7 @@
 
         public class _ITPT : _ISectionEntry
         {
-            public float[] Position { get; set; }
+            public Vector3f Position { get; set; }
             public float Scale { get; set; }
             public UInt16 Setting1 { get; set; }
             public UInt16 Setting2 { get; set; }
@@ -377,8 +377,8 @@
 
         public class _CKPT : _ISectionEntry
         {
-            public float[] PositionL { get; set; }
-            public float[] PositionR { get; set; }
+            public Vector2f PositionL { get; set; }
+            public Vector2f PositionR { get; set; }
             public Byte RespawnID { get; set; }
             public SByte Type { get; set; }
             public Byte Previous { get; set; }
@@ -474,9 +474,9 @@
         {
             public UInt16 ID;
             public UInt16 Padding { get; private set; }
-            public float[] Position { get; set; }
-            public float[] Rotation { get; set; }
-            public float[] Scale { get; set; }
+            public Vector3f Position { get; set; }
+            public Vector3f Rotation { get; set; }
+            public Vector3f Scale { get; set; }
             public UInt16 RouteID { get; set; }
             public UInt16[] Settings { get; set; }
             public UInt16 Flag { get; set; }
@@ -534,7 +534,7 @@
         {
             public class _Point : _ISectionEntry
             {
-                public float[] Position { get; set; }
+                public Vector3f Position { get; set; }
                 public UInt16 Setting1 { get; set; }
                 public UInt16 Setting2 { get; set; }
 
@@ -646,9 +646,9 @@
             public AreaType Type { get; set; }
             public Byte CameraID { get; set; }
             public Byte Priority { get; set; }
-            public float[] Position { get; set; }
-            public float[] Rotation { get; set; }
-            public float[] Scale { get; set; }
+            public Vector3f Position { get; set; }
+            public Vector3f Rotation { get; set; }
+            public Vector3f Scale { get; set; }
             public UInt16 Setting1 { get; set; }
             public UInt16 Setting2 { get; set; }
             public Byte RouteID { get; set; }
@@ -745,12 +745,12 @@
             public UInt16 ViewSpeed { get; set; }
             public Byte Start { get; set; }
             public Byte Movie { get; set; }
-            public float[] Position { get; set; }
-            public float[] Rotation { get; set; }
+            public Vector3f Position { get; set; }
+            public Vector3f Rotation { get; set; }
             public float ZoomStart { get; set; }
             public float ZoomEnd { get; set; }
-            public float[] ViewStart { get; set; }
-            public float[] ViewEnd { get; set; }
+            public Vector3f ViewStart { get; set; }
+            public Vector3f ViewEnd { get; set; }
             public float TimeActive { get; set;}
 
             public _CAME()
@@ -836,8 +836,8 @@
 
         public class _JGPT : _ISectionEntry
         {
-            public float[] Position { get; set; }
-            public float[] Rotation { get; set; }
+            public Vector3f Position { get; set; }
+            public Vector3f Rotation { get; set; }
             public Int16 Setting { get; set; }
             public UInt16 ID { get; private set; }
 
@@ -883,8 +883,8 @@
                 SlowCurved = 2
             }
 
-            public float[] Position { get; set; }
-            public float[] Rotation { get; set; }
+            public Vector3f Position { get; set; }
+            public Vector3f Rotation { get; set; }
             public CannonSetting Setting { get; set; }
             public UInt16 ID { get; set; }
 
@@ -923,8 +923,8 @@
 
         public class _MSPT : _ISectionEntry
         {
-            public float[] Position { get; set; }
-            public float[] Rotation { get; set; }
+            public Vector3f Position { get; set; }
+            public Vector3f Rotation { get; set; }
             public UInt16 ID { get; private set; }
             public Int16 Setting;
 
