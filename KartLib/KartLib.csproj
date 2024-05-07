@@ -15,7 +15,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EndianLib\EndianLib.csproj" />
+    <ProjectReference Include="..\EndianLib\MathLib.csproj" />
   </ItemGroup>
 
 </Project>

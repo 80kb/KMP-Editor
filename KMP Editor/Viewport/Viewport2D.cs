@@ -1,24 +1,26 @@
-﻿using DrawLib;
+﻿using DrawLib.Shapes;
 
 namespace System.Windows.Forms
 {
     public partial class Viewport2D : Panel
     {
-        private Graphics? Graphics;
-        private List<Shape> Shapes;
+        private Graphics?                   Graphics;
+        private List<Polygon>               Shapes;
+        private List<DrawLib.Shapes.Point>  Points;
 
-        public const float ZoomRate = 0.05f;
-        public float Zoom = 1f;
-        private Vector2f Offset;
-        private Vector2f MouseDelta;
+        public const float  ZoomRate = 0.05f;
+        public float        Zoom = 1f;
+        private Vector2f    Offset;
+        private Vector2f    MouseDelta;
 
-        private Shape? Dragging = null;
-        private bool Panning        = false;
+        private DrawLib.Shapes.Point?   Dragging = null;
+        private bool                    Panning  = false;
 
         public Viewport2D() : base()
         {
             this.DoubleBuffered = true;
-            this.Shapes         = new List<Shape>();
+            this.Shapes         = new List<Polygon>();
+            this.Points         = new List<DrawLib.Shapes.Point>();
             this.Offset         = new Vector2f();
             this.MouseDelta     = new Vector2f();
 
@@ -31,25 +33,27 @@ namespace System.Windows.Forms
 
         // Public methods
 
-        public void AddShape(Shape shape)
+        public void AddShape(Polygon shape)
         {
             this.Shapes.Add(shape);
-            CenterAt(shape.GetPosition());
+            this.Points.AddRange(shape.Points);
+            CenterAt(Points[0].X, Points[0].Y);
         }
 
         public void ClearShapes()
         {
             this.Shapes.Clear();
+            this.Points.Clear();
         }
 
         public Vector2f GetOffset() { return this.Offset; }
 
         // Private methods
         
-        private void CenterAt(Vector2f point)
+        private void CenterAt(float x, float y)
         {
-            this.Offset.X = (this.Width / 2) - point.X;
-            this.Offset.Y = (this.Height / 2) - point.Y;
+            this.Offset.X = (this.Width / 2) - x;
+            this.Offset.Y = (this.Height / 2) - y;
         }
 
         private void DrawShapes()
@@ -57,22 +61,24 @@ namespace System.Windows.Forms
             if(this.Graphics == null)
                 return;
 
-            foreach(Shape shape in this.Shapes)
+            foreach(Polygon shape in this.Shapes)
             {
-                Vector2f pos = shape.GetStaticPosition();
-                shape.SetPosition((pos.X + Offset.X) * Zoom, (pos.Y + Offset.Y) * Zoom);
-                shape.Draw(this.Graphics);
+                foreach(DrawLib.Shapes.Point point in shape.Points)
+                {
+                    point.RectX = (point.X + Offset.X) * Zoom;
+                    point.RectY = (point.Y + Offset.Y) * Zoom;
+                }
+                shape.Draw(Graphics);
             }
         }
 
-        private Shape? GetCurrentCollider(float MouseX, float MouseY)
+        private DrawLib.Shapes.Point? GetCurrentCollider(float MouseX, float MouseY)
         {
-            foreach (Shape shape in this.Shapes)
+            foreach (DrawLib.Shapes.Point point in this.Points)
             {
-                if (shape.Colliding(MouseX, MouseY)) 
-                    return shape;
+                if (point.Colliding(MouseX, MouseY))
+                    return point;
             }
-
             return null;
         }
 
@@ -98,7 +104,7 @@ namespace System.Windows.Forms
             }
             else if (e.Button == MouseButtons.Left)
             {
-                Shape? collider = GetCurrentCollider(e.Location.X, e.Location.Y);
+                DrawLib.Shapes.Point? collider = GetCurrentCollider(e.Location.X, e.Location.Y);
                 if (collider != null && this.Dragging == null)
                     this.Dragging = collider;
             }
@@ -133,12 +139,12 @@ namespace System.Windows.Forms
             {
                 if (this.Dragging != null)
                 {
-                    this.Dragging.SetStaticPosition((e.Location.X / Zoom) - Offset.X, (e.Location.Y / Zoom) - Offset.Y);
+                    this.Dragging.Drag((e.Location.X / Zoom) - Offset.X, (e.Location.Y / Zoom) - Offset.Y);
                     this.Invalidate();
                 }
             }
 
-            Shape? collidee = GetCurrentCollider(e.Location.X, e.Location.Y);
+            DrawLib.Shapes.Point? collidee = GetCurrentCollider(e.Location.X, e.Location.Y);
             if (collidee != null)
                 Cursor.Current = Cursors.SizeAll;
         }

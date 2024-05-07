@@ -1,5 +1,8 @@
-﻿namespace DrawLib
+﻿using System.ComponentModel;
+
+namespace System
 {
+    [TypeConverter(typeof(Vector3fConverter))]
     public struct Vector3f : ICloneable, IComparable, IComparable<Vector3f>
     {
         public const int SizeInBytes = 12;
@@ -288,7 +291,7 @@
 
         public override string ToString()
         {
-            return $"({X}; {Y}; {Z})";
+            return $"<{X}, {Y}, {Z}>";
         }
 
         public int CompareTo(object Obj)

@@ -1,5 +1,8 @@
-﻿namespace DrawLib
+﻿using System.ComponentModel;
+
+namespace System
 {
+    [TypeConverter(typeof(Vector2fConverter))]
     public struct Vector2f
     {
         public const int SizeInBytes = 8;
@@ -239,7 +242,7 @@
 
         public override string ToString()
         {
-            return "X: " + X + " Y: " + Y;
+            return "<" + X + ", " + Y + ">";
         }
     }
 }

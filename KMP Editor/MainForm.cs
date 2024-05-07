@@ -7,9 +7,9 @@ namespace KMP_Editor
 {
     public partial class MainForm : Form
     {
-        private KMP?  FileInstance;
+        private KMP? FileInstance;
         private Node? SelectedNode;
-        private bool  UnsavedChanges;
+        private bool UnsavedChanges;
 
         public MainForm()
         {
@@ -88,6 +88,7 @@ namespace KMP_Editor
 
             if (UnsavedChanges)
             {
+                foreach (char c in Text) if (c == '*') return;
                 Text += "*";
             }
             else
@@ -165,6 +166,7 @@ namespace KMP_Editor
             {
                 entryListBox.Items.Add(node.GetTitle(i));
             }
+            if (entryListBox.Items.Count > 0) entryListBox.SelectedIndex = 0;
         }
 
         private void entryListBox_SelectedIndexChanged(object sender, EventArgs e)

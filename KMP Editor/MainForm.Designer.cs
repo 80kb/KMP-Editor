@@ -114,6 +114,7 @@
             // 
             sectionTree.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             sectionTree.Enabled = false;
+            sectionTree.HideSelection = false;
             sectionTree.Location = new Point(6, 22);
             sectionTree.Name = "sectionTree";
             treeNode1.Name = "ktptNode";
