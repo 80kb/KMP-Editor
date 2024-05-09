@@ -36,12 +36,13 @@
         {
             if(_endpoints[0]._dragging)
             {
-                _endpoints[1]._dragging = false;            // fixes weird ghost endpoint bug
+                // fixes weird ghost endpoint bug
+                // only needed in this block because this is ran first if both are triggered
+                _endpoints[1]._dragging = false;
                 Vertices[0] = _endpoints[0].Vertices[0];
             }
             else if (_endpoints[1]._dragging)
             {
-                _endpoints[0]._dragging = false;            // same here
                 Vertices[1] = _endpoints[1].Vertices[0];
             }
         }
