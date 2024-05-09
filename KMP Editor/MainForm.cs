@@ -77,7 +77,7 @@ namespace KMP_Editor
 
             // graphics test
             
-            Line vertex = new Line(new Vector2f(5000, 5000), new Vector2f(5050, 5000), viewport);
+            DraggableLine vertex = new DraggableLine(new Vector2f(50, 50), new Vector2f(50, 100), viewport);
             viewport.AddShape(vertex);
             viewport.Invalidate();
         }

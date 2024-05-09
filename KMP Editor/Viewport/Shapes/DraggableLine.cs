@@ -1,23 +1,23 @@
 ﻿namespace KMP_Editor.Viewport.Shapes
 {
-    public class Line : Shape
+    public class DraggableLine : DraggableShape
     {
         public const int _width = 4;
 
-        private List<Vertex> _endpoints;
+        private List<DraggableVertex> _endpoints;
 
-        public Line(Vector2f pos1, Vector2f pos2, Viewport2D viewport) 
+        public DraggableLine(Vector2f pos1, Vector2f pos2, Viewport2D viewport) 
             : base(new List<Vector2f> { pos1, pos2 }, Color.Black, viewport)
         {
-            _endpoints = new List<Vertex> { new Vertex(pos1, viewport), new Vertex(pos2, viewport) };
+            _endpoints = new List<DraggableVertex> { new DraggableVertex(pos1, viewport), new DraggableVertex(pos2, viewport) };
         }
 
         public override void Draw(Graphics g, List<Vector2f> pos)
         {
-            float x1 = pos[0].X + (Vertex._size / 2);
-            float y1 = pos[0].Y + (Vertex._size / 2);
-            float x2 = pos[1].X + (Vertex._size / 2);
-            float y2 = pos[1].Y + (Vertex._size / 2);
+            float x1 = pos[0].X + (DraggableVertex._size / 2);
+            float y1 = pos[0].Y + (DraggableVertex._size / 2);
+            float x2 = pos[1].X + (DraggableVertex._size / 2);
+            float y2 = pos[1].Y + (DraggableVertex._size / 2);
             g.DrawLine(new Pen(FillColor, _width), x1, y1, x2, y2 );
             for(int i = 0; i < _endpoints.Count; i++)
             {

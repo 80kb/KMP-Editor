@@ -62,7 +62,7 @@ namespace System.Windows.Forms
             {
                 List<Vector2f> transPos = new List<Vector2f>();
                 for(int i = 0; i < shape.Vertices.Count; i++)
-                    transPos.Add((shape.Vertices[i] + Offset) * Zoom);
+                    transPos.Add((shape.Vertices[i] * Zoom) + Offset);
                 shape.Draw(Graphics, transPos);
             }
         }

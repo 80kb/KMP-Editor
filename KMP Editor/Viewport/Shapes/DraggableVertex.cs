@@ -1,10 +1,10 @@
 ﻿namespace KMP_Editor.Viewport.Shapes
 {
-    public class Vertex : Shape
+    public class DraggableVertex : DraggableShape
     {
         public const int _size = 8;
 
-        public Vertex(Vector2f position, Viewport2D viewport) 
+        public DraggableVertex(Vector2f position, Viewport2D viewport) 
             : base(new List<Vector2f> { position }, Color.Black, viewport) {}
 
         public override void Draw(Graphics g, List<Vector2f> pos)
@@ -15,16 +15,20 @@
         public override bool Colliding(float x, float y)
         {
             Vector2f pos = Vertices[0];
-            if(x > pos.X && x < pos.X + _size && y > pos.Y && y < pos.Y + _size) 
-                return true;
-
+            if (x >= pos.X && x <= pos.X + (_size / _viewport.GetZoom()))
+            {
+                if (y >= pos.Y && y <= pos.Y + (_size / _viewport.GetZoom()))
+                {
+                    return true;
+                }
+            }
             return false;
         }
 
         protected override void OnMouseDown(object? sender, MouseEventArgs e)
         {
-            float x = (e.Location.X / _viewport.GetZoom()) - _viewport.GetOffset().X;
-            float y = (e.Location.Y / _viewport.GetZoom()) - _viewport.GetOffset().Y;
+            float x = (e.Location.X - _viewport.GetOffset().X) / _viewport.GetZoom();
+            float y = (e.Location.Y - _viewport.GetOffset().Y) / _viewport.GetZoom();
             if(e.Button == MouseButtons.Left && Colliding(x, y))
             {
                 _dragging = true;
@@ -42,9 +46,8 @@
 
         protected override void OnMouseMove(object? sender, MouseEventArgs e)
         {
-            float x = (e.Location.X / _viewport.GetZoom()) - _viewport.GetOffset().X;
-            float y = (e.Location.Y / _viewport.GetZoom()) - _viewport.GetOffset().Y;
-
+            float x = (e.Location.X - _viewport.GetOffset().X) / _viewport.GetZoom();
+            float y = (e.Location.Y - _viewport.GetOffset().Y) / _viewport.GetZoom();
             if(_dragging)
             {
                 Vertices[0] = new Vector2f(x, y);
