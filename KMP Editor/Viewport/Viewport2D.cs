@@ -1,26 +1,24 @@
-﻿using KMP_Editor.Viewport.Shapes;
+﻿using KMP_Editor.Viewport;
+using KMP_Editor.Viewport.Shapes;
+using System.Diagnostics;
 
 namespace System.Windows.Forms
 {
     public partial class Viewport2D : Panel
     {
-        private Graphics?                   Graphics;
-        private List<Polygon>               Shapes;
-        private List<KMP_Editor.Viewport.Shapes.Point>  Points;
+        private Graphics?   Graphics;
+        private List<Shape> Shapes;
 
         public const float  ZoomRate = 0.05f;
         public float        Zoom = 1f;
+        private bool        Panning  = false;
         private Vector2f    Offset;
         private Vector2f    MouseDelta;
-
-        private KMP_Editor.Viewport.Shapes.Point?   Dragging = null;
-        private bool                    Panning  = false;
 
         public Viewport2D() : base()
         {
             this.DoubleBuffered = true;
-            this.Shapes         = new List<Polygon>();
-            this.Points         = new List<KMP_Editor.Viewport.Shapes.Point>();
+            this.Shapes         = new List<Shape>();
             this.Offset         = new Vector2f();
             this.MouseDelta     = new Vector2f();
 
@@ -33,17 +31,16 @@ namespace System.Windows.Forms
 
         // Public methods
 
-        public void AddShape(Polygon shape)
+        public void AddShape(Shape shape)
         {
             this.Shapes.Add(shape);
-            this.Points.AddRange(shape.Points);
-            CenterAt(Points[0].X, Points[0].Y);
+            Shape current = Shapes[Shapes.Count - 1];
+            CenterAt(current.Vertices[0].X, current.Vertices[0].Y);
         }
 
         public void ClearShapes()
         {
             this.Shapes.Clear();
-            this.Points.Clear();
         }
 
         public Vector2f GetOffset() { return this.Offset; }
@@ -61,25 +58,13 @@ namespace System.Windows.Forms
             if(this.Graphics == null)
                 return;
 
-            foreach(Polygon shape in this.Shapes)
+            foreach(Shape shape in this.Shapes)
             {
-                foreach(KMP_Editor.Viewport.Shapes.Point point in shape.Points)
-                {
-                    point.RectX = (point.X + Offset.X) * Zoom;
-                    point.RectY = (point.Y + Offset.Y) * Zoom;
-                }
-                shape.Draw(Graphics);
+                List<Vector2f> transPos = new List<Vector2f>();
+                for(int i = 0; i < shape.Vertices.Count; i++)
+                    transPos.Add(shape.Vertices[i] + Offset);
+                shape.Draw(Graphics, transPos);
             }
-        }
-
-        private KMP_Editor.Viewport.Shapes.Point? GetCurrentCollider(float MouseX, float MouseY)
-        {
-            foreach (KMP_Editor.Viewport.Shapes.Point point in this.Points)
-            {
-                if (point.Colliding(MouseX, MouseY))
-                    return point;
-            }
-            return null;
         }
 
         // Event handlers
@@ -102,12 +87,6 @@ namespace System.Windows.Forms
                 if (!this.Panning)
                     this.Panning = true;
             }
-            else if (e.Button == MouseButtons.Left)
-            {
-                KMP_Editor.Viewport.Shapes.Point? collider = GetCurrentCollider(e.Location.X, e.Location.Y);
-                if (collider != null && this.Dragging == null)
-                    this.Dragging = collider;
-            }
         }
 
         protected void OnMouseUp(object? sender, MouseEventArgs e)
@@ -115,11 +94,6 @@ namespace System.Windows.Forms
             if (e.Button == MouseButtons.Middle || (e.Button == MouseButtons.Left && Control.ModifierKeys == Keys.Control))
             {
                 this.Panning = false;
-            }
-            else if (e.Button == MouseButtons.Left)
-            {
-                if (this.Dragging != null)
-                    this.Dragging = null;
             }
         }
 
@@ -135,18 +109,6 @@ namespace System.Windows.Forms
                     this.Invalidate();
                 }
             }
-            else if (e.Button == MouseButtons.Left)
-            {
-                if (this.Dragging != null)
-                {
-                    this.Dragging.Drag((e.Location.X / Zoom) - Offset.X, (e.Location.Y / Zoom) - Offset.Y);
-                    this.Invalidate();
-                }
-            }
-
-            KMP_Editor.Viewport.Shapes.Point? collidee = GetCurrentCollider(e.Location.X, e.Location.Y);
-            if (collidee != null)
-                Cursor.Current = Cursors.SizeAll;
         }
 
         protected void OnMouseWheel(object? sender, MouseEventArgs e)
