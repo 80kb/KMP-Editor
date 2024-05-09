@@ -23,8 +23,8 @@
 
         protected override void OnMouseDown(object? sender, MouseEventArgs e)
         {
-            float x = e.Location.X - _viewport.GetOffset().X;
-            float y = e.Location.Y - _viewport.GetOffset().Y;
+            float x = (e.Location.X / _viewport.GetZoom()) - _viewport.GetOffset().X;
+            float y = (e.Location.Y / _viewport.GetZoom()) - _viewport.GetOffset().Y;
             if(e.Button == MouseButtons.Left && Colliding(x, y))
             {
                 _dragging = true;
@@ -42,8 +42,8 @@
 
         protected override void OnMouseMove(object? sender, MouseEventArgs e)
         {
-            float x = e.Location.X - _viewport.GetOffset().X;
-            float y = e.Location.Y - _viewport.GetOffset().Y;
+            float x = (e.Location.X / _viewport.GetZoom()) - _viewport.GetOffset().X;
+            float y = (e.Location.Y / _viewport.GetZoom()) - _viewport.GetOffset().Y;
 
             if(_dragging)
             {

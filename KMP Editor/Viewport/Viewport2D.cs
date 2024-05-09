@@ -43,6 +43,8 @@ namespace System.Windows.Forms
 
         public Vector2f GetOffset() { return this.Offset; }
 
+        public float GetZoom() { return this.Zoom; }
+
         // Private methods
         
         private void CenterAt(float x, float y)
@@ -60,7 +62,7 @@ namespace System.Windows.Forms
             {
                 List<Vector2f> transPos = new List<Vector2f>();
                 for(int i = 0; i < shape.Vertices.Count; i++)
-                    transPos.Add(shape.Vertices[i] + Offset);
+                    transPos.Add((shape.Vertices[i] + Offset) * Zoom);
                 shape.Draw(Graphics, transPos);
             }
         }
