@@ -2,6 +2,7 @@ using KMP_Editor.Control.Nodes;
 using KMP_Editor.Control;
 using KartLib.Serial;
 using System.Text;
+using KMP_Editor.Viewport.Shapes;
 
 namespace KMP_Editor
 {
@@ -73,6 +74,12 @@ namespace KMP_Editor
 
             foreach (TreeNode node in sectionTree.Nodes)
                 if (node.Tag != null) ((Node)node.Tag).Populate(node);
+
+            // graphics test
+            
+            Line vertex = new Line(new Vector2f(5000, 5000), new Vector2f(5050, 5000), viewport);
+            viewport.AddShape(vertex);
+            viewport.Invalidate();
         }
 
         private void UpdateUI()

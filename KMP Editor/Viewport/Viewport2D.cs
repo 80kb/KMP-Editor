@@ -1,6 +1,4 @@
 ﻿using KMP_Editor.Viewport;
-using KMP_Editor.Viewport.Shapes;
-using System.Diagnostics;
 
 namespace System.Windows.Forms
 {
@@ -9,8 +7,8 @@ namespace System.Windows.Forms
         private Graphics?   Graphics;
         private List<Shape> Shapes;
 
-        public const float  ZoomRate = 0.05f;
-        public float        Zoom = 1f;
+        private const float ZoomRate = 0.05f;
+        private float       Zoom = 1f;
         private bool        Panning  = false;
         private Vector2f    Offset;
         private Vector2f    MouseDelta;
