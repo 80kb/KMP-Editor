@@ -36,10 +36,12 @@
         {
             if(_endpoints[0]._dragging)
             {
+                _endpoints[1]._dragging = false;            // fixes weird ghost endpoint bug
                 Vertices[0] = _endpoints[0].Vertices[0];
             }
             else if (_endpoints[1]._dragging)
             {
+                _endpoints[0]._dragging = false;            // same here
                 Vertices[1] = _endpoints[1].Vertices[0];
             }
         }
