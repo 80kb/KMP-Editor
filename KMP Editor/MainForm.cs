@@ -74,12 +74,6 @@ namespace KMP_Editor
 
             foreach (TreeNode node in sectionTree.Nodes)
                 if (node.Tag != null) ((Node)node.Tag).Populate(node);
-
-            // graphics test
-            
-            DraggableLine vertex = new DraggableLine(new Vector2f(50, 50), new Vector2f(50, 100), viewport);
-            viewport.AddShape(vertex);
-            viewport.Invalidate();
         }
 
         private void UpdateUI()
