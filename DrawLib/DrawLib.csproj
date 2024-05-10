@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Viewport\Viewport2D.cs">
+    <Compile Update="Viewport2D.cs">
       <SubType>Component</SubType>
     </Compile>
   </ItemGroup>
