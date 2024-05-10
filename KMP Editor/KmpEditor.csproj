@@ -25,6 +25,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DrawLib\DrawLib.csproj">
+      <Private>True</Private>
+    </ProjectReference>
     <ProjectReference Include="..\KartLib\KartLib.csproj">
       <Private>True</Private>
     </ProjectReference>
@@ -35,9 +38,6 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Viewport\Viewport2D.cs">
-      <SubType>Component</SubType>
     </Compile>
   </ItemGroup>
 

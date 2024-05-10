@@ -1,13 +1,13 @@
-﻿namespace KMP_Editor.Viewport
+﻿namespace DrawLib
 {
     public abstract class Shape
     {
         public List<Vector2f> Vertices { get; set; }
-        public Color FillColor         { get; set; }
+        public Color FillColor { get; set; }
 
         public Shape(List<Vector2f> vertices, Color color)
         {
-            Vertices  = vertices;
+            Vertices = vertices;
             FillColor = color;
         }
 

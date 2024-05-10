@@ -2,7 +2,6 @@ using KMP_Editor.Control.Nodes;
 using KMP_Editor.Control;
 using KartLib.Serial;
 using System.Text;
-using KMP_Editor.Viewport.Shapes;
 
 namespace KMP_Editor
 {

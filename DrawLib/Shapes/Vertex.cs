@@ -1,4 +1,4 @@
-﻿namespace KMP_Editor.Viewport.Shapes
+﻿namespace DrawLib.Shapes
 {
     public class Vertex : Shape
     {

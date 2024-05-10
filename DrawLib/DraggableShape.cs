@@ -1,15 +1,15 @@
-﻿namespace KMP_Editor.Viewport
+﻿namespace DrawLib
 {
     public abstract class DraggableShape : Shape
     {
         internal Viewport2D _viewport;
-        internal bool       _dragging;
+        internal bool _dragging;
 
         public DraggableShape(List<Vector2f> vertices, Color color, Viewport2D viewport) : base(vertices, color)
         {
             _viewport = viewport;
             _viewport.MouseDown += OnMouseDown;
-            _viewport.MouseUp   += OnMouseUp;
+            _viewport.MouseUp += OnMouseUp;
             _viewport.MouseMove += OnMouseMove;
         }
 
