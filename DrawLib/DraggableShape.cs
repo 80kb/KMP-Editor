@@ -2,8 +2,8 @@
 {
     public abstract class DraggableShape : Shape
     {
-        internal Viewport2D _viewport;
-        internal bool _dragging;
+        public Viewport2D _viewport { get; internal set; }
+        public bool       _dragging { get; internal set; }
 
         public DraggableShape(List<Vector2f> vertices, Color color, Viewport2D viewport) : base(vertices, color)
         {

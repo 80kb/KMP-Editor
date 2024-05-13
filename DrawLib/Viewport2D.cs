@@ -67,6 +67,25 @@ namespace System.Windows.Forms
             }
         }
 
+        private void DragOneAtATime()
+        {
+            bool debounce = false;
+            foreach(Shape shape in this.Shapes)
+            {
+                if (shape.GetType().IsSubclassOf(typeof(DraggableShape)))
+                {
+                    if (((DraggableShape)shape)._dragging && !debounce)
+                    {
+                        debounce = true;
+                    }
+                    else if(((DraggableShape)shape)._dragging && debounce)
+                    { 
+                        ((DraggableShape)shape)._dragging = false;
+                    }
+                }
+            }
+        }
+
         // Event handlers
 
         protected void OnPaint(object? sender, PaintEventArgs e)
@@ -109,6 +128,11 @@ namespace System.Windows.Forms
                     this.Invalidate();
                 }
             }
+
+            if (e.Button == MouseButtons.Left)
+            {
+                DragOneAtATime();
+            }
         }
 
         protected void OnMouseWheel(object? sender, MouseEventArgs e)
@@ -117,6 +141,9 @@ namespace System.Windows.Forms
                 this.Zoom += ZoomRate;
             else if (e.Delta < 0 && this.Zoom > 0.01f)
                 this.Zoom -= ZoomRate;
+
+            Vector2f relativeOffset = new Vector2f(e.Location.X, e.Location.Y) - Offset;
+            Offset += relativeOffset * (1 - 1 / Zoom);
 
             this.Invalidate();
         }

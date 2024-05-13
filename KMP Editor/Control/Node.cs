@@ -16,5 +16,7 @@ namespace KMP_Editor.Control
         {
             node.Tag = this;
         }
+
+        public virtual void AddShapes() { }
     }
 }

@@ -36,9 +36,6 @@
         {
             if (_endpoints[0]._dragging)
             {
-                // fixes weird ghost endpoint bug
-                // only needed in this block because this is ran first if both are triggered
-                _endpoints[1]._dragging = false;
                 Vertices[0] = _endpoints[0].Vertices[0];
             }
             else if (_endpoints[1]._dragging)
