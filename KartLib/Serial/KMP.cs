@@ -202,11 +202,40 @@
 
         public class _ENPT : _ISectionEntry
         {
+            public enum Setting1Enum : UInt16
+            {
+                Default = 0,
+                SpeedItemRequired = 1,
+                UseSpeedItem = 2,
+                Wheelie = 3,
+                EndWheelie = 4,
+                Unknown = 5
+            }
+
+            public enum Setting2Enum : Byte
+            {
+                Default = 0,
+                EndDrift = 1,
+                ZigZag = 2,
+                ForceDrift = 3,
+                StandardBattleUnknown = 10,
+                DispatchBattleUnknown = 20
+            }
+
+            public enum Setting3Enum : Byte
+            {
+                Default = 0,
+                ExactRoute = 0x80,
+                Eflag2 = 0x40,
+                Eflag3 = 0x20,
+                StopEflag2 = 0x10
+            }
+
             public Vector3f Position { get; set; }
             public float Scale { get; set; }
-            public UInt16 Setting1 { get; set; }
-            public Byte Setting2 { get; set; }
-            public Byte Setting3 { get; set; }
+            public Setting1Enum Setting1 { get; set; }
+            public Setting2Enum Setting2 { get; set; }
+            public Setting3Enum Setting3 { get; set; }
 
             public _ENPT()
             {
@@ -221,27 +250,27 @@
             {
                 Position = reader.ReadFloats(3);
                 Scale = reader.ReadFloat();
-                Setting1 = reader.ReadUInt16();
-                Setting2 = reader.ReadByte();
-                Setting3 = reader.ReadByte();
+                Setting1 = (Setting1Enum)reader.ReadUInt16();
+                Setting2 = (Setting2Enum)reader.ReadByte();
+                Setting3 = (Setting3Enum)reader.ReadByte();
             }
 
             public void Read(EndianReader reader)
             {
                 Position = reader.ReadFloats(3);
                 Scale = reader.ReadFloat();
-                Setting1 = reader.ReadUInt16();
-                Setting2 = reader.ReadByte();
-                Setting3 = reader.ReadByte();
+                Setting1 = (Setting1Enum)reader.ReadUInt16();
+                Setting2 = (Setting2Enum)reader.ReadByte();
+                Setting3 = (Setting3Enum)reader.ReadByte();
             }
 
             public void Write(EndianWriter writer)
             {
                 writer.WriteSingles(Position);
                 writer.WriteSingle(Scale);
-                writer.WriteUInt16(Setting1);
-                writer.WriteByte(Setting2);
-                writer.WriteByte(Setting3);
+                writer.WriteUInt16((UInt16)Setting1);
+                writer.WriteByte((Byte)Setting2);
+                writer.WriteByte((Byte)Setting3);
             }
         }
 
@@ -292,10 +321,30 @@
 
         public class _ITPT : _ISectionEntry
         {
+            public enum Setting1Enum : UInt16
+            {
+                Default = 1,
+                OverAbyss = 0,
+                ExactFollow = 2,
+                OverBouncyMushroom = 3
+            }
+
+            public enum Setting2Enum : UInt16
+            {
+                Default = 0,
+                DontDrop = 1,
+                LowPriority = 10,
+                DontDropLowPriority = 11,
+                Unknown = 100,
+                UnknownDontDrop = 101,
+                UnknownLowPriority = 110,
+                UnknownDontDropLowPriority = 111
+            }
+
             public Vector3f Position { get; set; }
             public float Scale { get; set; }
-            public UInt16 Setting1 { get; set; }
-            public UInt16 Setting2 { get; set; }
+            public Setting1Enum Setting1 { get; set; }
+            public Setting2Enum Setting2 { get; set; }
 
             public _ITPT()
             {
@@ -309,24 +358,24 @@
             {
                 Position = reader.ReadFloats(3);
                 Scale = reader.ReadSingle();
-                Setting1 = reader.ReadUInt16();
-                Setting2 = reader.ReadUInt16();
+                Setting1 = (Setting1Enum)reader.ReadUInt16();
+                Setting2 = (Setting2Enum)reader.ReadUInt16();
             }
 
             public void Read(EndianReader reader)
             {
                 Position = reader.ReadFloats(3);
                 Scale = reader.ReadSingle();
-                Setting1 = reader.ReadUInt16();
-                Setting2 = reader.ReadUInt16();
+                Setting1 = (Setting1Enum)reader.ReadUInt16();
+                Setting2 = (Setting2Enum)reader.ReadUInt16();
             }
 
             public void Write(EndianWriter writer)
             {
                 writer.WriteSingles(Position);
                 writer.WriteSingle(Scale);
-                writer.WriteUInt16(Setting1);
-                writer.WriteUInt16(Setting2);
+                writer.WriteUInt16((UInt16)Setting1);
+                writer.WriteUInt16((UInt16)Setting2);
             }
         }
 

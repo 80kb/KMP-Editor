@@ -27,7 +27,7 @@ namespace KMP_Editor
                 return;
 
             sectionTree.Nodes[0].Tag = new KTPTNode(FileInstance, viewport);
-            sectionTree.Nodes[1].Tag = new ENPHNode(FileInstance);
+            sectionTree.Nodes[1].Tag = new ENPHNode(FileInstance, viewport);
             sectionTree.Nodes[2].Tag = new ITPHNode(FileInstance);
             sectionTree.Nodes[3].Tag = new CKPHNode(FileInstance);
             sectionTree.Nodes[4].Tag = new GOBJNode(FileInstance);

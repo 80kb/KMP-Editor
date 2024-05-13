@@ -7,11 +7,13 @@ namespace System.Windows.Forms
         private Graphics?   Graphics;
         private List<Shape> Shapes;
 
-        private const float ZoomRate = 0.05f;
-        private float       Zoom = 1f;
+        private const float ZoomRate = 0.0005f;
+        private float       Zoom = 0.01f;
         private bool        Panning  = false;
         private Vector2f    Offset;
         private Vector2f    MouseDelta;
+
+        private bool Debounce = false;
 
         public Viewport2D() : base()
         {
@@ -32,8 +34,12 @@ namespace System.Windows.Forms
         public void AddShape(Shape shape)
         {
             this.Shapes.Add(shape);
-            Shape current = Shapes[Shapes.Count - 1];
-            CenterAt(current.Vertices[0].X, current.Vertices[0].Y);
+            if (!Debounce)
+            {
+                this.Debounce = true;
+                Shape current = Shapes[Shapes.Count - 1];
+                CenterAt(current.Vertices[0].X, current.Vertices[0].Y);
+            }
         }
 
         public void ClearShapes()
@@ -49,8 +55,8 @@ namespace System.Windows.Forms
         
         private void CenterAt(float x, float y)
         {
-            this.Offset.X = (this.Width / 2) - x;
-            this.Offset.Y = (this.Height / 2) - y;
+            this.Offset.X = (this.Width / 2) - (x * Zoom);
+            this.Offset.Y = (this.Height / 2) - (y * Zoom);
         }
 
         private void DrawShapes()
@@ -139,11 +145,8 @@ namespace System.Windows.Forms
         {
             if (e.Delta > 0)
                 this.Zoom += ZoomRate;
-            else if (e.Delta < 0 && this.Zoom > 0.01f)
+            else if (e.Delta < 0 && this.Zoom > 0.0001f)
                 this.Zoom -= ZoomRate;
-
-            Vector2f relativeOffset = new Vector2f(e.Location.X, e.Location.Y) - Offset;
-            Offset += relativeOffset * (1 - 1 / Zoom);
 
             this.Invalidate();
         }
